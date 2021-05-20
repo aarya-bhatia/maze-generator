@@ -2,6 +2,8 @@
 
 ![](res/screenshots/MazeGenerator.png)
 
+background image credits: <a href="http://www.freepik.com">Designed by 0melapics / Freepik</a>
+
 <!-- TABLE OF CONTENTS -->
 <details open="open">
   <summary>Table of Contents</summary>
