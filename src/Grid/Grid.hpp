@@ -29,7 +29,7 @@ public:
 
     const Maze &maze;
 
-    Grid(const Maze &m) : width(K::grid_columns), height(K::grid_rows), cells(size()), maze(m)
+    Grid(const Maze &m) : width(K::grid_cols), height(K::grid_rows), cells(size()), maze(m)
     {
         init();
     }

@@ -13,11 +13,14 @@ namespace K
     const bool TRACER = true;
     const bool SOLVER = true;
 
-    const std::string title = "MAZE GENERATOR";
+    const char *title = "MAZE GENERATOR";
 
-    const char PATH = '.';
-    const char VERT_WALL = '|';
-    const char HORZ_WALL = '_';
+    enum MazeSymbols
+    {
+        PATH = '.',
+        VERT_WALL = '|',
+        HORZ_WALL = '_'
+    };
 
     const int screen_width = 1960;
     const int screen_height = 1715;
@@ -25,17 +28,17 @@ namespace K
     int cell_width = 100;
     int cell_height = 100;
 
-    int maze_width = 6;
-    int maze_height = 6;
+    int maze_cols = 6;
+    int maze_rows = 6;
 
-    int grid_columns = 2 * maze_width - 1;
-    int grid_rows = 2 * maze_height - 1;
+    int grid_cols = 2 * maze_cols - 1;
+    int grid_rows = 2 * maze_rows - 1;
 
-    int grid_width = grid_columns * cell_width;
+    int grid_width = grid_cols * cell_width;
     int grid_height = grid_rows * cell_height;
 
-    int grid_offset_x = fmax(0, fmin(screen_width / 2, (screen_width - cell_width * grid_columns) / 2));
-    int grid_offset_y = fmax(0, fmin(screen_height / 2, (screen_height - cell_height * grid_rows) / 2));
+    int grid_xoff = fmax(0, fmin(screen_width / 2, (screen_width - cell_width * grid_cols) / 2));
+    int grid_yoff = fmax(0, fmin(screen_height / 2, (screen_height - cell_height * grid_rows) / 2));
 
     const unsigned int alpha = 150;
 
@@ -48,9 +51,7 @@ namespace K
     const sf::Color col_selected_text = sf::Color::Yellow;
 
     const std::string RES_DIR = "res/";
-
     const std::string FONT_DIR = RES_DIR + "fonts/";
-
     const std::string IMAGE_DIR = RES_DIR + "images/";
 
     const std::string FONT_AMATIC_REGULAR = FONT_DIR + "amatic/AmaticSC-Regular.ttf";
@@ -61,7 +62,7 @@ namespace K
 
     const std::string FONT_FIRA_SANS_BOLD = FONT_DIR + "fira-sans/FiraSans-Bold.otf";
 
-    const unsigned int char_size = 100U;
+    const unsigned int CHARACTER_SIZE = 100U;
 
     const std::string BACKGROUND_IMAGE_FILE = IMAGE_DIR + "background/starry.jpg";
 
@@ -70,9 +71,10 @@ namespace K
     const float slider_radius = 7.5f;
     const float slider_x_off = 0.5 * (screen_width - slider_width);
 
-    const int MAX_ROWS = 50;
+    const int MAX_ROWS = static_cast<int>((screen_height / cell_height) / 2); /* divide by 2 to convert max grid rows to max maze rows */
+    const int MAX_COLS = static_cast<int>((screen_width / cell_width) / 2);   /* divide by 2 to convert max grid cols to max maze cols */
+
     const int MIN_ROWS = 3;
-    const int MAX_COLS = 50;
     const int MIN_COLS = 3;
 
 };

@@ -68,7 +68,7 @@ void Maze::print() const
 
 Maze *Maze::create()
 {
-    Maze *maze = new Maze(K::maze_width, K::maze_height);
+    Maze *maze = new Maze(K::maze_cols, K::maze_rows);
     maze->start = 0;
     maze->end = maze->size() - 1;
     return maze;

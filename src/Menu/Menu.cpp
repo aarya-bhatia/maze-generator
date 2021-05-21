@@ -9,7 +9,7 @@ float Menu::getYOff() const
 
 float Menu::getXOff() const
 {
-    return K::screen_width / 2 - (K::char_size * 4) / 2;
+    return K::screen_width / 2 - (K::CHARACTER_SIZE * 4) / 2;
 }
 
 float Menu::getYAbs(int i, int yOff) const
@@ -28,7 +28,7 @@ void Menu::init()
     {
         menuItems[i].setFont(fontManager.font);
         menuItems[i].setString(itemLabels[i]);
-        menuItems[i].setCharacterSize(K::char_size);
+        menuItems[i].setCharacterSize(K::CHARACTER_SIZE);
         menuItems[i].setFillColor(K::col_text);
         menuItems[i].setPosition(sf::Vector2f(xOff, getYAbs(i, yOff)));
     }
@@ -38,8 +38,6 @@ void Menu::init()
 
 void Menu::draw(sf::RenderWindow &window)
 {
-    // window.draw(imageManager.background);
-
     for (int i = 0; i < numItems; i++)
     {
         window.draw(menuItems[i]);

@@ -54,7 +54,7 @@ void Grid::update(int row, int col, const sf::Color &color)
 void Grid::initCell(int cell, const sf::Color &color)
 {
     cells[cell].setSize(sf::Vector2f(K::cell_width, K::cell_height));
-    cells[cell].setPosition(sf::Vector2f(K::grid_offset_x + col(cell) * K::cell_width, K::grid_offset_y + row(cell) * K::cell_height));
+    cells[cell].setPosition(sf::Vector2f(K::grid_xoff + col(cell) * K::cell_width, K::grid_yoff + row(cell) * K::cell_height));
 
     if (K::OUTLINE)
     {
