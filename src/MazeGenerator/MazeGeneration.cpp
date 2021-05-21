@@ -15,48 +15,48 @@ void MazeGeneration::next()
     switch (direction)
     {
     case 0:
-        if (maze.hasTop(cell) && !maze.hasPath(cell, maze.top(cell)))
+        if (maze.hasTop(cell) && !hasPath(cell, maze.top(cell)))
         {
             current.cell = cell;
             current.neighbour = maze.top(cell);
 
-            maze.set.make_union(cell, maze.top(cell));
+            set.make_union(cell, maze.top(cell));
             maze.addEdge(cell, Maze::TOP);
             maze.addEdge(maze.top(cell), Maze::BOTTOM);
         }
         break;
 
     case 1:
-        if (maze.hasRight(cell) && !maze.hasPath(cell, maze.right(cell)))
+        if (maze.hasRight(cell) && !hasPath(cell, maze.right(cell)))
         {
             current.cell = cell;
             current.neighbour = maze.right(cell);
 
-            maze.set.make_union(cell, maze.right(cell));
+            set.make_union(cell, maze.right(cell));
             maze.addEdge(cell, Maze::RIGHT);
             maze.addEdge(maze.right(cell), Maze::LEFT);
         }
         break;
 
     case 2:
-        if (maze.hasBottom(cell) && !maze.hasPath(cell, maze.bottom(cell)))
+        if (maze.hasBottom(cell) && !hasPath(cell, maze.bottom(cell)))
         {
             current.cell = cell;
             current.neighbour = maze.bottom(cell);
 
-            maze.set.make_union(cell, maze.bottom(cell));
+            set.make_union(cell, maze.bottom(cell));
             maze.addEdge(cell, Maze::BOTTOM);
             maze.addEdge(maze.bottom(cell), Maze::TOP);
         }
         break;
 
     case 3:
-        if (maze.hasLeft(cell) && !maze.hasPath(cell, maze.left(cell)))
+        if (maze.hasLeft(cell) && !hasPath(cell, maze.left(cell)))
         {
             current.cell = cell;
             current.neighbour = maze.left(cell);
 
-            maze.set.make_union(cell, maze.left(cell));
+            set.make_union(cell, maze.left(cell));
             maze.addEdge(cell, Maze::LEFT);
             maze.addEdge(maze.left(cell), Maze::RIGHT);
         }
@@ -64,9 +64,9 @@ void MazeGeneration::next()
     }
 }
 
-bool MazeGeneration::finished() const
+bool MazeGeneration::finished()
 {
-    return maze.hasPath(maze.start, maze.end);
+    return hasPath(maze.start, maze.end);
 }
 
 void createMaze(Maze &maze)
@@ -97,6 +97,5 @@ void MazeGeneration::update(Grid &grid)
 void MazeGeneration::log() const
 {
     std::cout << "iterations: " << iterations << std::endl;
-    std::cout << "has path: " << maze.hasPath(maze.start, maze.end) << std::endl;
-    std::cout << "set: " << maze.set << std::endl;
+    std::cout << "set: " << set << std::endl;
 }

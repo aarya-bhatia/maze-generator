@@ -13,7 +13,9 @@ struct MazeGeneration
 {
     Maze &maze;
 
-    int iterations;
+    DisjSet set;
+
+    int iterations = 0;
 
     struct Current
     {
@@ -27,10 +29,15 @@ struct MazeGeneration
 
     void next();
 
-    bool finished() const;
+    bool finished();
 
-    explicit MazeGeneration(Maze &m) : maze(m), iterations(0)
+    explicit MazeGeneration(Maze &m) : maze(m), set(maze.size())
     {
+    }
+
+    bool hasPath(int x, int y)
+    {
+        return set.find(x) == set.find(y);
     }
 
     void update(Grid &grid);

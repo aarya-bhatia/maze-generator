@@ -15,13 +15,6 @@ namespace K
 
     const char *title = "MAZE GENERATOR";
 
-    enum MazeSymbols
-    {
-        PATH = '.',
-        VERT_WALL = '|',
-        HORZ_WALL = '_'
-    };
-
     const int screen_width = 1960;
     const int screen_height = 1715;
 

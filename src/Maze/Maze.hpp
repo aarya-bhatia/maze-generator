@@ -1,5 +1,6 @@
 #include "DisjSet.hpp"
 #include "K.hpp"
+#include <vector>
 
 #ifndef MAZE_HPP
 #define MAZE_HPP
@@ -7,28 +8,23 @@
 class Maze
 {
 private:
-    int *edges;
+    std::vector<int> edges;
 
 public:
     int width;
     int height;
-    int start;
+    int start = 0;
     int end;
-    DisjSet set;
 
     const static int TOP = 1;
     const static int RIGHT = 2;
     const static int BOTTOM = 4;
     const static int LEFT = 8;
 
-    Maze(int w, int h) : width(w), height(h), start(0), end(size() - 1), set(size())
+    Maze(int w, int h) : width(w), height(h)
     {
-        edges = new int[size()];
-    }
-
-    ~Maze()
-    {
-        delete[] edges;
+        edges = std::vector<int>(size());
+        end = size() - 1;
     }
 
     static Maze *create();
@@ -113,11 +109,6 @@ public:
     void printEdges() const;
 
     void print() const;
-
-    bool hasPath(int x, int y)
-    {
-        return set.find(x) == set.find(y);
-    }
 
     int getGridCell(int row, int col) const
     {

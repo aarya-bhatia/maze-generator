@@ -1,6 +1,6 @@
 #include "Slider.hpp"
 
-void Slider::init(int y = K::screen_height / 2)
+void Slider::init(int y)
 {
     ready = true;
     container.setPosition(sf::Vector2f(K::slider_x_off, y));

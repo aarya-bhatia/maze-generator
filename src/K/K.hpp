@@ -18,8 +18,6 @@ namespace K
 
     extern const char *title; /* window title */
 
-    enum MazeSymbols; /* symbols used to print maze on console for debug */
-
     extern const int screen_width;  /* width of window in pixels */
     extern const int screen_height; /* height of window in pixels */
 
@@ -78,6 +76,13 @@ namespace K
 
     extern const unsigned int CHARACTER_SIZE; /* size of font characters in pixel */
 
+    /* symbols used to print maze on console for debug */
+    enum MazeSymbols
+    {
+        PATH = '.',
+        VERT_WALL = '|',
+        HORZ_WALL = '_'
+    };
 };
 
 #endif
