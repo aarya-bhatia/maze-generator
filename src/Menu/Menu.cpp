@@ -38,7 +38,7 @@ void Menu::init()
 
 void Menu::draw(sf::RenderWindow &window)
 {
-    window.draw(imageManager.background);
+    // window.draw(imageManager.background);
 
     for (int i = 0; i < numItems; i++)
     {

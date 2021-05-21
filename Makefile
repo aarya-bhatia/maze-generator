@@ -4,6 +4,8 @@ BIN_DIR := bin
 
 OBJ_DIR := obj
 
+TEST_DIR := test
+
 EXE := $(BIN_DIR)/main
 
 CXX := g++
@@ -17,7 +19,6 @@ SRC := $(shell find $(SRC_DIR) -name *.cpp)
 OBJS := $(SRC:$(SRC_DIR)/%.$(EXT)=$(OBJ_DIR)/%.o)
 
 INC_FLAGS := $(addprefix -I, $(shell find $(SRC_DIR) -type d))
-# INC_FLAGS := $(addprefix -I, $(dir $(SRC))
 
 CPPFLAGS := $(INC_FLAGS) -MMD -MP
 
@@ -34,14 +35,15 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.$(EXT)
 	mkdir -p $(dir $@);
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
-infoSrc:
-	echo $(SRC)
+test: $(BIN_DIR)/$(TEST_DIR)/hello
 
-infoObj:
-	echo $(OBJS)
+$(BIN_DIR)/$(TEST_DIR)/%: $(OBJ_DIR)/$(TEST_DIR)/%.o
+	mkdir -p $(dir $@);
+	$(CXX) $^ -o $@
 
-infoCppflags:
-	echo $(CPPFLAGS)
+$(OBJ_DIR)/$(TEST_DIR)/%.o: $(TEST_DIR)/%.cpp
+	mkdir -p $(dir $@);
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
 clean:
 	$(RM) -rv $(BIN_DIR) $(OBJ_DIR)

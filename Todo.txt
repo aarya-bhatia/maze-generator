@@ -2,3 +2,4 @@
 -> change colors of cells in settings
 -> call solve and trace again
 -> implement a scroll pane in menu
+-> reset maze generator after tracer is done 
