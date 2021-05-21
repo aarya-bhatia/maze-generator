@@ -10,74 +10,67 @@
 
 namespace K
 {
-    static const bool AUTOPLAY = true;
-    static const bool DEBUG = true;
-    static const bool OUTLINE = true;
+    extern const bool AUTOPLAY;
+    extern const bool DEBUG;
+    extern const bool OUTLINE;
 
-    static const bool TRACER = true;
-    static const bool SOLVER = true;
+    extern const bool TRACER;
+    extern const bool SOLVER;
 
-    static const std::string title = "MAZE GENERATOR";
+    extern const std::string title;
 
-    static const char PATH = '.';
-    static const char VERT_WALL = '|';
-    static const char HORZ_WALL = '_';
+    extern const char PATH;
+    extern const char VERT_WALL;
+    extern const char HORZ_WALL;
 
-    static const int screen_width = 1960;
-    static const int screen_height = 1715;
+    extern const int screen_width;
+    extern const int screen_height;
 
-    static int cell_width = 100;
-    static int cell_height = 100;
+    extern int cell_width;
+    extern int cell_height;
 
-    static int maze_width = 6;
-    static int maze_height = 6;
+    extern int maze_width;
+    extern int maze_height;
 
-    static int grid_columns = 2 * maze_width - 1;
-    static int grid_rows = 2 * maze_height - 1;
+    extern int grid_columns;
+    extern int grid_rows;
 
-    static int grid_width = grid_columns * cell_width;
-    static int grid_height = grid_rows * cell_height;
+    extern int grid_width;
+    extern int grid_height;
 
-    static int grid_offset_x = fmax(0, fmin(screen_width / 2, (screen_width - cell_width * grid_columns) / 2));
-    static int grid_offset_y = fmax(0, fmin(screen_height / 2, (screen_height - cell_height * grid_rows) / 2));
+    extern int grid_offset_x;
+    extern int grid_offset_y;
 
-    static const unsigned int alpha = 150;
+    extern const unsigned int alpha;
 
-    static const sf::Color col_wall = sf::Color(50, 50, 50, alpha);
-    static const sf::Color col_path = sf::Color(50, 150, 250, alpha);
-    static const sf::Color col_outline = sf::Color(150, 150, 150, alpha);
-    static const sf::Color col_explore = sf::Color(6, 68, 32, (int)(1.5 * alpha) % 255);
-    static const sf::Color col_tracer = sf::Color(228, 239, 231, (int)(1.5 * alpha) % 255);
-    static const sf::Color col_text = sf::Color::White;
-    static const sf::Color col_selected_text = sf::Color::Yellow;
+    extern const sf::Color col_wall;
+    extern const sf::Color col_path;
+    extern const sf::Color col_outline;
+    extern const sf::Color col_explore;
+    extern const sf::Color col_tracer;
+    extern const sf::Color col_text;
+    extern const sf::Color col_selected_text;
 
-    static const std::string RES_DIR = "res/";
+    extern const std::string RES_DIR;
+    extern const std::string FONT_DIR;
+    extern const std::string IMAGE_DIR;
+    extern const std::string FONT_AMATIC_REGULAR;
+    extern const std::string FONT_CAVIAR_DREAMS_BOLD;
+    extern const std::string FONT_CAVIAR_DREAMS_REGULAR;
+    extern const std::string FONT_FIRA_SANS_BOLD;
+    extern const std::string BACKGROUND_IMAGE_FILE;
 
-    static const std::string FONT_DIR = RES_DIR + "fonts/";
+    extern const unsigned int char_size;
 
-    static const std::string IMAGE_DIR = RES_DIR + "images/";
+    extern const float slider_width;
+    extern const float slider_height;
+    extern const float slider_radius;
+    extern const float slider_x_off;
 
-    static const std::string FONT_AMATIC_REGULAR = FONT_DIR + "amatic/AmaticSC-Regular.ttf";
-
-    static const std::string FONT_CAVIAR_DREAMS_BOLD = FONT_DIR + "Caviar-Dreams/Caviar_Dreams_Bold.ttf";
-
-    static const std::string FONT_CAVIAR_DREAMS_REGULAR = FONT_DIR + "Caviar-Dreams/CaviarDreams.ttf";
-
-    static const std::string FONT_FIRA_SANS_BOLD = FONT_DIR + "fira-sans/FiraSans-Bold.otf";
-
-    static const unsigned int char_size = 100U;
-
-    static const std::string BACKGROUND_IMAGE_FILE = IMAGE_DIR + "background/starry.jpg";
-
-    static const float slider_width = (screen_width * 0.45f);
-    static const float slider_height = 5;
-    static const float slider_radius = 7.5f;
-    static const float slider_x_off = 0.5 * (screen_width - slider_width);
-
-    static const int MAX_ROWS = 50;
-    static const int MIN_ROWS = 3;
-    static const int MAX_COLS = 50;
-    static const int MIN_COLS = 3;
+    extern const int MAX_ROWS;
+    extern const int MIN_ROWS;
+    extern const int MAX_COLS;
+    extern const int MIN_COLS;
 
 };
 
