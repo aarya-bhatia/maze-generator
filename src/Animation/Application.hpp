@@ -7,7 +7,7 @@
 #include "ImageManager.hpp"
 
 class PathTracer;
-class MazeSolver;
+class Solver;
 
 #ifndef APPLICATION_HPP
 #define APPLICATION_HPP
@@ -17,8 +17,8 @@ struct Application
     State *state;
     Maze *maze;
     Grid *grid;
-    MazeGeneration *generator;
-    MazeSolver *solver;
+    Generator *generator;
+    Solver *solver;
     PathTracer *tracer;
     Menu *menu;
 

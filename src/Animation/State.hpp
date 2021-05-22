@@ -1,9 +1,17 @@
+#include "Bits.hpp"
+
 #ifndef STATE_HPP
 #define STATE_HPP
 
 struct State
 {
     unsigned int state;
+
+    // todo make a menu state containing quit help settings flags
+    // state should have a flag for menu, if menu is on,
+    // menu state handles further requests
+    // if menu flag is off, state handles general requests
+    // todo: use my bits library to set flags on or off
 
     State() : state(0) {}
 

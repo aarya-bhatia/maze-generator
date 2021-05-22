@@ -53,7 +53,7 @@ void Application::createGenerator()
         std::cerr << "Cannot create generator because maze does not exist" << std::endl;
         exit(-1);
     }
-    generator = new MazeGeneration(*maze);
+    generator = new Generator(*maze);
 }
 
 void Application::createSolver()
@@ -63,7 +63,7 @@ void Application::createSolver()
         std::cerr << "Cannot create solver because generator is not finished" << std::endl;
         exit(-1);
     }
-    solver = new MazeSolver(*maze, *grid);
+    solver = new Solver(*maze, *grid);
 }
 
 void Application::createTracer()

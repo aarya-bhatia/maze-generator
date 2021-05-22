@@ -9,7 +9,7 @@
 /**
  * Solves the maze step by step using BFS
  */
-class MazeSolver
+class Solver
 {
 private:
     std::vector<bool> visited;
@@ -30,7 +30,7 @@ public:
     std::vector<int> path; /* stores the order in which cells are explored */
     int current;           /* The cell currently being explored */
 
-    explicit MazeSolver(const Maze &m, const Grid &g) : maze(m), grid(g), current(-1)
+    explicit Solver(const Maze &m, const Grid &g) : maze(m), grid(g), current(-1)
     {
         init();
     }

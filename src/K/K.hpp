@@ -75,14 +75,6 @@ namespace K
     extern const std::string BACKGROUND_IMAGE_FILE;
 
     extern const unsigned int CHARACTER_SIZE; /* size of font characters in pixel */
-
-    /* symbols used to print maze on console for debug */
-    enum MazeSymbols
-    {
-        PATH = '.',
-        VERT_WALL = '|',
-        HORZ_WALL = '_'
-    };
 };
 
 #endif

@@ -1,6 +1,6 @@
 #include "MazeSolver.hpp"
 
-void MazeSolver::init()
+void Solver::init()
 {
     start = grid.getMazeCell(maze.row(maze.start), maze.column(maze.start));
     end = grid.getMazeCell(maze.row(maze.end), maze.column(maze.end));
@@ -27,7 +27,7 @@ void MazeSolver::init()
     }
 }
 
-void MazeSolver::next()
+void Solver::next()
 {
     if (finished())
     {
@@ -47,14 +47,14 @@ void MazeSolver::next()
     }
 }
 
-void MazeSolver::visit(int cell)
+void Solver::visit(int cell)
 {
     visited[cell] = true;
     path[cell] = current;
     queue.push(cell);
 }
 
-void MazeSolver::update()
+void Solver::update()
 {
     int mazeCell = maze.getGridCell(grid.row(current), grid.col(current));
     int gridLeft = grid.left(current);
@@ -87,7 +87,7 @@ void MazeSolver::update()
     }
 }
 
-void MazeSolver::log() const
+void Solver::log() const
 {
 
     std::cout << "Path: [";
