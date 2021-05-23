@@ -10,6 +10,7 @@
         "locale": "cpp",
         "__hash_table": "cpp",
         "istream": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "iosfwd": "cpp"
     }
 }

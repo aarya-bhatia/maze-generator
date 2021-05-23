@@ -2,6 +2,8 @@
 #include "ImageManager.hpp"
 #include "FontManager.hpp"
 
+#include "Logger.h"
+
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/ContextSettings.hpp>
 #include <SFML/Window/VideoMode.hpp>
@@ -26,19 +28,23 @@ int main()
     if (fonts->load())
     {
         std::cout << "Fonts loaded successfully" << std::endl;
+        Logger::log("Fonts loaded successfully");
     }
     else
     {
         std::cout << "Failed to load fonts" << std::endl;
+        Logger::log("Failed to load fonts");
     }
 
     if (images->load())
     {
         std::cout << "Images loaded successfuly" << std::endl;
+        Logger::log("Images loaded successfully");
     }
     else
     {
         std::cout << "Failed to load images" << std::endl;
+        Logger::log("Failed to load images");
     }
 
     bool error = fonts == nullptr || images == nullptr;
