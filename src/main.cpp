@@ -1,5 +1,4 @@
 #include "Animation.hpp"
-
 #include "ImageManager.hpp"
 #include "FontManager.hpp"
 
@@ -8,10 +7,21 @@
 #include <SFML/Window/VideoMode.hpp>
 #include <SFML/Window/Event.hpp>
 
-bool LoadResources(ImageManager *images, FontManager *fonts)
+int main()
 {
-    images = new ImageManager(K::BACKGROUND_IMAGE_FILE);
-    fonts = new FontManager(K::FONT_CAVIAR_DREAMS_BOLD);
+    sf::ContextSettings settings;
+    settings.antialiasingLevel = 6;
+
+    sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode(K::screen_width, K::screen_height), K::title, sf::Style::Default, settings);
+
+    assert(window != nullptr);
+    window->setFramerateLimit(20);
+
+    Animation *app = new Animation;
+    app->init();
+
+    ImageManager *images = new ImageManager(K::BACKGROUND_IMAGE_FILE);
+    FontManager *fonts = new FontManager(K::FONT_CAVIAR_DREAMS_BOLD);
 
     if (fonts->load())
     {
@@ -31,26 +41,7 @@ bool LoadResources(ImageManager *images, FontManager *fonts)
         std::cout << "Failed to load images" << std::endl;
     }
 
-    return (fonts == nullptr || images == nullptr);
-}
-
-int main()
-{
-    sf::ContextSettings settings;
-    settings.antialiasingLevel = 6;
-
-    sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode(K::screen_width, K::screen_height), K::title, sf::Style::Default, settings);
-
-    assert(window != nullptr);
-    window->setFramerateLimit(20);
-
-    Animation *app = new Animation;
-    app->init();
-
-    ImageManager *images = nullptr;
-    FontManager *fonts = nullptr;
-
-    bool error = LoadResources(images, fonts);
+    bool error = fonts == nullptr || images == nullptr;
 
     while (!error && window->isOpen())
     {
@@ -77,18 +68,32 @@ int main()
 
         window->clear(sf::Color::Black);
 
-        window->draw(images->background);
+        if (images != nullptr)
+        {
+            window->draw(images->background);
+        }
 
         app->render(*window);
 
         window->display();
     }
 
-    delete fonts;
-    delete images;
-    delete app;
-    delete window;
-
+    if (fonts != nullptr)
+    {
+        delete fonts;
+    }
+    if (images != nullptr)
+    {
+        delete images;
+    }
+    if (window != nullptr)
+    {
+        delete window;
+    }
+    if (app != nullptr)
+    {
+        delete app;
+    }
     std::cout << "EXITING PROGRAM" << std::endl;
     return 0;
 }

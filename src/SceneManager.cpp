@@ -4,7 +4,7 @@
 
 #include "SceneManager.h"
 
-SceneManager::SceneManager() : current(0), len(0)
+SceneManager::SceneManager() : len(0), current(0)
 {
     scenes = std::vector<Scene *>();
 }
@@ -17,9 +17,9 @@ SceneManager::~SceneManager()
     }
 }
 
-Scene &SceneManager::get() const
+Scene *SceneManager::get() const
 {
-    return *scenes[current];
+    return scenes[current];
 }
 
 void SceneManager::put(Scene *scene)

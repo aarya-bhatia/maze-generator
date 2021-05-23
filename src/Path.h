@@ -6,8 +6,8 @@
 class Path
 {
 private:
-    std::vector<int> list;
     Math::Matrix view_matrix; // grid
+    std::vector<int> list;
 
     int key(const Math::Matrix::Coord &coord) const
     {

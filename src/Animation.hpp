@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Scene.hpp"
-#include "SceneManager.h"
 #include "Generator.hpp"
 #include "Solver.hpp"
 #include "PathTracer.hpp"
@@ -26,9 +25,10 @@ static inline Scene *createTracer(SceneData &data)
 class Animation : public Component
 {
 private:
-    SceneManager sceneManager;
-    SceneData sceneData;
-    TaskQueue taskQueue;
+    SceneData *sceneData;
+    TaskQueue *taskQueue;
+    Scene *scene;
+    std::list<Scene*>scenes;
 
     void nextScene();
     bool finished() const;

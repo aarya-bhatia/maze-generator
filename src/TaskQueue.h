@@ -30,8 +30,14 @@ public:
 
     Task next()
     {
-        return queue.front();
+        auto ret = queue.front();
         queue.pop();
+        return ret;
+    }
+
+    bool finished() const
+    {
+        return queue.empty();
     }
 
     TaskQueue() {}

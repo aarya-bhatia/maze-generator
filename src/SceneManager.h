@@ -9,21 +9,27 @@
 
 #include <vector>
 
-class SceneManager {
+class SceneManager
+{
 private:
     std::vector<Scene *> scenes;
     int len;
     int current;
+
 public:
     SceneManager();
 
     ~SceneManager();
 
+    bool empty() const { return len == 0; }
+
+    bool finished() const { return current >= len; }
+
     bool hasNext() const;
 
     void next();
 
-    Scene &get() const;
+    Scene *get() const;
 
     void put(Scene *scene);
 };

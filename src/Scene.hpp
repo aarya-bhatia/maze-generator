@@ -16,12 +16,12 @@ protected:
     }
 
 public:
-    void render(sf::RenderWindow &window) override
+    virtual void render(sf::RenderWindow &window) override
     {
         data.grid->render(window);
     }
 
-    void handleEvent(const sf::Event &event) override
+    virtual void handleEvent(const sf::Event &event) override
     {
         std::cout << "Scene Event" << std::endl;
     }
