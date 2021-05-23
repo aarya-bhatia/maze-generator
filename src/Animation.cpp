@@ -42,8 +42,7 @@ void Animation::nextScene()
         TaskQueue::Task task = taskQueue->next(); // get next task
 
         // invoke task function pointer to create the next scene
-        scenes.push_front(task.fptr(*sceneData));
-        scene = scenes.front();
+        scene = task.fptr(*sceneData);
 
         std::cout << "Starting Next Scene: ID=" << task.id << std::endl;
     }
@@ -95,13 +94,18 @@ Animation::~Animation()
     {
         std::cout << __FILE__ << " destructor" << std::endl;
     }
+
+    std::cout << __FILE__ << ": Destroying scenes.." << std::endl;
+
+    for (auto it = scenes.begin(); it != scenes.end();)
+    {
+        if (*it != nullptr)
+        {
+            delete *it;
+            it = scenes.erase(it);
+        }
+    }
+
     delete sceneData;
     delete taskQueue;
-
-    while (!scenes.empty())
-    {
-        Scene *tmp = scenes.front();
-        scenes.pop_front();
-        delete tmp;
-    }
 }

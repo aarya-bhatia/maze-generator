@@ -1,5 +1,7 @@
 #pragma once
 
+#include "K.hpp"
+#include <iostream>
 #include <SFML/Graphics.hpp>
 
 class Component

@@ -1,0 +1,58 @@
+# STILL HANGS UP ON TRACER SCENE BUT OTHERWISE RUNS SMOOTHLY AND WINDOW CLOSES WITHOUT LAG.
+# CHECK UP ON TRACER..
+
+aarya@Aaryas-MacBook-Pro Maze Generator % main
+src/Component.hpp constructor
+src/Animation.cpp constructor
+TaskQueue constructor
+src/SceneData.h constructor
+src/Maze.hpp constructor
+src/Grid.hpp constructor
+Path constructor
+TaskQueue constructor
+src/SceneData.h constructor
+src/Maze.hpp constructor
+src/Grid.hpp constructor
+Path constructor
+src/ImageManager.hpp constructor
+src/FontManager.hpp constructor
+Fonts loaded successfully
+Images loaded successfuly
+src/Component.hpp constructor
+src/AbstractScene.hpp constructor
+src/Scene.hpp constructor
+src/DisjSet.cpp constructor
+src/Generator.hpp constructor
+Starting Next Scene: ID=1
+src/Component.hpp constructor
+src/AbstractScene.hpp constructor
+src/Scene.hpp constructor
+src/Solver.hpp constructor
+src/Solver.cpp: 14: To solve data.maze from cell (0,0) to cell (4,4)
+Starting Next Scene: ID=2
+src/Component.hpp constructor
+src/AbstractScene.hpp constructor
+src/Scene.hpp constructor
+PathTracer constructor
+Path: [(4,4) (3,4) (2,4) (1,4) (0,4) (0,3) (0,2) (0,1) (0,0) ]
+Starting Next Scene: ID=3
+src/Animation.cpp destructor
+src/Animation.cpp: Destroying scenes..
+src/Solver.hpp destructor
+src/Scene.hpp destructor
+src/AbstractScene.hpp destructor
+src/Component.hpp destructor
+src/Generator.hpp destructor
+src/DisjSet.hpp destructor
+src/Scene.hpp destructor
+src/AbstractScene.hpp destructor
+src/Component.hpp destructor
+src/SceneData.h destructor
+Path Destructor
+src/Maze.hpp destructor
+src/Grid.hpp destructor
+TaskQueue destructor
+src/Component.hpp destructor
+src/FontManager.hpp destructor
+src/ImageManager.hpp destructor
+EXITING PROGRAM

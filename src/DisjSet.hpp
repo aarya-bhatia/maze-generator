@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <list>
+#include "K.hpp"
 
 #ifndef DISJ_SET_HPP
 #define DISJ_SET_HPP

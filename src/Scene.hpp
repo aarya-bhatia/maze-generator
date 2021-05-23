@@ -8,7 +8,7 @@
 class Scene : public AbstractScene
 {
 protected:
-    SceneData data;
+    SceneData &data;
     sf::Color color;
 
     explicit Scene(SceneData &data, const sf::Color &color) : data(data), color(color)
