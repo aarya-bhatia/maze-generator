@@ -11,6 +11,19 @@ public:
 
     explicit PathTracer(SceneData &data) : Scene(data, K::col_tracer), current(data.end), tracing(true)
     {
+        if (K::DEBUG)
+        {
+            std::cout << "PathTracer constructor" << std::endl;
+        }
+        log();
+    }
+
+    ~PathTracer()
+    {
+        if (K::DEBUG)
+        {
+            std::cout << __FILE__ << " destructor" << std::endl;
+        }
     }
 
     void next() override;

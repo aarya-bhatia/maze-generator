@@ -18,8 +18,8 @@ namespace K
     int cell_width = 100;
     int cell_height = 100;
 
-    int maze_cols = 6;
-    int maze_rows = 6;
+    int maze_cols = 3;
+    int maze_rows = 3;
 
     int grid_cols = 2 * maze_cols - 1;
     int grid_rows = 2 * maze_rows - 1;

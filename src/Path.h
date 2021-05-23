@@ -26,12 +26,24 @@ public:
     Path(const Math::Matrix &view_matrix) : view_matrix(view_matrix),
                                             list(view_matrix.size())
     {
+        if (K::DEBUG)
+        {
+            std::cout << "Path constructor" << std::endl;
+        }
         init();
     }
 
-    void set(const Math::Matrix::Coord &from, const Math::Matrix::Coord &to)
+    ~Path()
     {
-        list[key(to)] = key(from);
+        if (K::DEBUG)
+        {
+            std::cout << "Path Destructor" << std::endl;
+        }
+    }
+
+    void set(const Math::Matrix::Coord &neighbour, const Math::Matrix::Coord &current)
+    {
+        list[key(neighbour)] = key(current);
     }
 
     Math::Matrix::Coord get(const Math::Matrix::Coord &coord) const

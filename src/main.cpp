@@ -78,6 +78,10 @@ int main()
         window->display();
     }
 
+    if (app != nullptr)
+    {
+        delete app;
+    }
     if (fonts != nullptr)
     {
         delete fonts;
@@ -89,10 +93,6 @@ int main()
     if (window != nullptr)
     {
         delete window;
-    }
-    if (app != nullptr)
-    {
-        delete app;
     }
     std::cout << "EXITING PROGRAM" << std::endl;
     return 0;

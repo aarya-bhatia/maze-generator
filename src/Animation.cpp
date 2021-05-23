@@ -82,11 +82,19 @@ bool Animation::finished() const
 
 Animation::Animation() : scenes()
 {
+    if (K::DEBUG)
+    {
+        std::cout << __FILE__ << " constructor" << std::endl;
+    }
     init();
 }
 
 Animation::~Animation()
 {
+    if (K::DEBUG)
+    {
+        std::cout << __FILE__ << " destructor" << std::endl;
+    }
     delete sceneData;
     delete taskQueue;
 

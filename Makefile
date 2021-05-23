@@ -1,5 +1,5 @@
 cxx=clang++
-cxxflags=-Wall -std=c++14 -g
+cxxflags=-Wall -std=c++14 -g -o1
 cppflags=-Isrc -Isrc/math -MMD -MP
 ldlibs=-lsfml-graphics -lsfml-system -lsfml-window
 src=$(shell find src -name *.cpp)

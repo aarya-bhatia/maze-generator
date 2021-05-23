@@ -74,5 +74,17 @@ public:
                                           iterations(0),
                                           foundNext(false)
     {
+        if (K::DEBUG)
+        {
+            std::cout << __FILE__ << " constructor" << std::endl;
+        }
+    }
+
+    ~Generator()
+    {
+        if (K::DEBUG)
+        {
+            std::cout << __FILE__ << " destructor" << std::endl;
+        }
     }
 };

@@ -13,6 +13,10 @@ protected:
 
     explicit Scene(SceneData &data, const sf::Color &color) : data(data), color(color)
     {
+        if (K::DEBUG)
+        {
+            std::cout << __FILE__ << " constructor" << std::endl;
+        }
     }
 
 public:
@@ -26,5 +30,11 @@ public:
         std::cout << "Scene Event" << std::endl;
     }
 
-    virtual ~Scene() {}
+    virtual ~Scene()
+    {
+        if (K::DEBUG)
+        {
+            std::cout << __FILE__ << " destructor" << std::endl;
+        }
+    }
 };

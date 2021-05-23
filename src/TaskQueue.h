@@ -12,11 +12,6 @@ public:
         Scene *(*fptr)(SceneData &);
     };
 
-    int countTotal() const
-    {
-        return total;
-    }
-
     int countPending() const
     {
         return queue.size();
@@ -25,7 +20,6 @@ public:
     void add(Task task)
     {
         queue.push(task);
-        total++;
     }
 
     Task next()
@@ -40,11 +34,22 @@ public:
         return queue.empty();
     }
 
-    TaskQueue() {}
+    TaskQueue()
+    {
+        if (K::DEBUG)
+        {
+            std::cout << "TaskQueue constructor" << std::endl;
+        }
+    }
 
-    ~TaskQueue() {}
+    ~TaskQueue()
+    {
+        if (K::DEBUG)
+        {
+            std::cout << "TaskQueue destructor" << std::endl;
+        }
+    }
 
 private:
     std::queue<Task> queue;
-    int total;
 };

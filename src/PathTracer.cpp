@@ -14,7 +14,7 @@ void PathTracer::next()
 
 bool PathTracer::finished()
 {
-    return tracing;
+    return data.path->get(current).as1D(data.grid->matrix) == -1 || tracing;
 }
 
 void PathTracer::update()

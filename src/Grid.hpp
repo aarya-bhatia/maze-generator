@@ -24,7 +24,19 @@ public:
     explicit Grid(const Matrix &maze_mat) : matrix(maze_mat.width * 2 - 1, maze_mat.height * 2 - 1),
                                             cells(matrix.size())
     {
+        if (K::DEBUG)
+        {
+            std::cout << __FILE__ << " constructor" << std::endl;
+        }
         init();
+    }
+
+    ~Grid()
+    {
+        if (K::DEBUG)
+        {
+            std::cout << __FILE__ << " destructor" << std::endl;
+        }
     }
 
     /**

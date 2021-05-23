@@ -1,10 +1,15 @@
 #include "DisjSet.hpp"
+#include "K.hpp"
 
 /**
  * Initialise set and partitions
  */
 DisjSet::DisjSet(int n) : _size(n), set(size())
 {
+    if (K::DEBUG)
+    {
+        std::cout << __FILE__ << " constructor" << std::endl;
+    }
     for (int i = 0; i < size(); i++)
     {
         set[i] = -1;

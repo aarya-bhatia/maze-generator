@@ -24,11 +24,19 @@ public:
                                        current(data.start),
                                        solving(true)
     {
+        if (K::DEBUG)
+        {
+            std::cout << __FILE__ << " constructor" << std::endl;
+        }
         init();
     }
 
     ~Solver()
     {
+        if (K::DEBUG)
+        {
+            std::cout << __FILE__ << " destructor" << std::endl;
+        }
     }
 
     /**

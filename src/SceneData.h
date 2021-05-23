@@ -15,6 +15,10 @@ struct SceneData
 
     SceneData()
     {
+        if (K::DEBUG)
+        {
+            std::cout << __FILE__ << " constructor" << std::endl;
+        }
         maze = new Maze(K::maze_cols, K::maze_rows);
         grid = new Grid(maze->matrix);
         path = new Path(grid->matrix);
@@ -28,6 +32,10 @@ struct SceneData
 
     ~SceneData()
     {
+        if (K::DEBUG)
+        {
+            std::cout << __FILE__ << " destructor" << std::endl;
+        }
         delete path;
         delete maze;
         delete grid;

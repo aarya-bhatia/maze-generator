@@ -20,7 +20,7 @@ void Solver::init()
  */
 void Solver::next()
 {
-    if (finished() && solving)
+    if (finished() || !solving)
     {
         std::cout << __FILE__ << ": " << __LINE__ << ": Path found" << std::endl;
         return;
@@ -31,6 +31,10 @@ void Solver::next()
         current = queue.front();
         queue.pop();
 
+        // std::cout << __FILE__ << ": Current: " << current << std::endl;
+
+        visited[current.as1D(data.grid->matrix)] = true;
+
         Matrix::Coord mazeCoord = Matrix::mapToMaze(current);
 
         // Visit the neighbours in all four directions of the current cell.
@@ -39,21 +43,19 @@ void Solver::next()
         {
             Dir::dir_t dir = static_cast<Dir::dir_t>(i);
 
-            if (data.maze->hasEdge(mazeCoord, dir) && !visited[mazeCoord.get(dir).as1D(data.grid->matrix)])
+            if (mazeCoord.has(data.maze->matrix, dir) && current.has(data.grid->matrix, dir) &&
+                data.maze->hasEdge(mazeCoord, dir) && !visited[current.get(dir).as1D(data.grid->matrix)])
             {
-                Matrix::Coord neighbour = current.get(dir);
-
-                visited[neighbour.as1D(data.grid->matrix)] = true;
-
-                data.path->set(current, neighbour);
-
-                queue.push(neighbour);
+                queue.push(current.get(dir));
+                visited[current.get(dir).as1D(data.grid->matrix)] = true;
+                data.path->set(current.get(dir), current);
+                // std::cout << __FILE__ << ": Visiting: " << current.get(dir) << std::endl;
             }
         }
     }
     else
     {
-        std::cout << __FILE__ << ": " << __LINE__ << ": No data.path found" << std::endl;
+        std::cout << __FILE__ << ": " << __LINE__ << ": No path found" << std::endl;
         solving = false;
     }
 }

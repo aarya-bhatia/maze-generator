@@ -10,7 +10,13 @@ class DisjSet
 public:
     explicit DisjSet(int n);
 
-    ~DisjSet() {}
+    ~DisjSet()
+    {
+        if (K::DEBUG)
+        {
+            std::cout << __FILE__ << " destructor" << std::endl;
+        }
+    }
 
     int find(int x);
 

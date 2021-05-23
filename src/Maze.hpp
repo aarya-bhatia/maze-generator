@@ -25,6 +25,18 @@ struct Maze
                                            start(0),
                                            end(matrix.size() - 1)
     {
+        if (K::DEBUG)
+        {
+            std::cout << __FILE__ << " constructor" << std::endl;
+        }
+    }
+
+    ~Maze()
+    {
+        if (K::DEBUG)
+        {
+            std::cout << __FILE__ << " destructor" << std::endl;
+        }
     }
 
     int countEdges(int cell) { return Bits::countOn(edges[cell]); }

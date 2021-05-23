@@ -9,5 +9,20 @@ public:
     virtual bool finished() = 0;
 
 protected:
-    AbstractScene() {}
+    AbstractScene()
+    {
+        if (K::DEBUG)
+        {
+            std::cout << __FILE__ << " constructor" << std::endl;
+        }
+    }
+
+public:
+    virtual ~AbstractScene()
+    {
+        if (K::DEBUG)
+        {
+            std::cout << __FILE__ << " destructor" << std::endl;
+        }
+    }
 };
