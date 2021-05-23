@@ -29,7 +29,7 @@ public:
 
     bool load()
     {
-        if (texture.loadFromFile(file))
+        if (texture.loadFromFile(file, sf::IntRect(0, 20, K::screen_width, K::screen_height)))
         {
             background.setTexture(texture);
             return true;
