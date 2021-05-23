@@ -1,12 +1,10 @@
+#pragma once
+
 #include "K.hpp"
-#include "PathTracer.hpp"
-#include "Grid.hpp"
-#include <queue>
-
 #include "Scene.hpp"
+#include "PathTracer.hpp"
 
-#ifndef MAZE_SOLVER_HPP
-#define MAZE_SOLVER_HPP
+#include <queue>
 
 /**
  * Solves the maze step by step using BFS
@@ -16,19 +14,21 @@ class Solver : public Scene
 private:
     std::vector<bool> visited;
     std::queue<Matrix::Coord> queue;
-
-    Matrix::Coord start;
-    Matrix::Coord end;
-    Matrix::Coord current; /* The cell currently being explored */
+    Matrix::Coord current;
+    bool solving;
 
 public:
-    explicit Solver(std::shared_ptr<Grid> grid,
-                    std::shared_ptr<Maze> maze,
-                    std::shared_ptr<std::vector<Matrix::Coord>> path)
-        : Scene(grid, maze, path, K::col_explore),
-          current(*Matrix::Coord::getNull())
+    explicit Solver(SceneData &data) : Scene(data, K::col_explore),
+                                       visited(data.grid->matrix.size()),
+                                       queue(),
+                                       current(data.start),
+                                       solving(true)
     {
         init();
+    }
+
+    ~Solver()
+    {
     }
 
     /**
@@ -36,7 +36,7 @@ public:
      */
     void update() override
     {
-        grid->cells[current.as1D(grid->matrix)].setFillColor(color);
+        data.grid->cells[current.as1D(data.grid->matrix)].setFillColor(color);
     }
 
     /**
@@ -54,7 +54,7 @@ public:
      */
     bool finished() override
     {
-        return current == end;
+        return current == data.end;
     }
 
     /**
@@ -62,5 +62,3 @@ public:
      */
     void log() const;
 };
-
-#endif

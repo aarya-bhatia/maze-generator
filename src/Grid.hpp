@@ -18,8 +18,8 @@ private:
     void initCell(Matrix::Coord cell, const sf::Color &color = K::col_wall);
 
 public:
-    std::vector<sf::RectangleShape> cells; // Add this to a GridDisplay class later -> TODO
     Matrix matrix;
+    std::vector<sf::RectangleShape> cells; // Add this to a GridDisplay class later -> TODO
 
     explicit Grid(const Matrix &maze_mat) : matrix(maze_mat.width * 2 - 1, maze_mat.height * 2 - 1),
                                             cells(matrix.size())
@@ -34,7 +34,7 @@ public:
 
     void render(sf::RenderWindow &window)
     {
-        for (int i = 0; i < cells.size(); i++)
+        for (size_t i = 0; i < cells.size(); i++)
         {
             window.draw(cells[i]);
         }

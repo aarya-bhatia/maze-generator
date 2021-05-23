@@ -6,12 +6,9 @@
 
 namespace K
 {
-    const bool AUTOPLAY = true;
-    const bool DEBUG = true;
-    const bool OUTLINE = true;
-
-    const bool TRACER = true;
-    const bool SOLVER = true;
+    bool AUTOPLAY = true;
+    bool DEBUG = true;
+    bool OUTLINE = true;
 
     const char *title = "MAZE GENERATOR";
 

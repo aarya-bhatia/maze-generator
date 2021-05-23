@@ -2,18 +2,7 @@
   "configurations": [
     {
       "name": "Mac",
-      "includePath": [
-        "${workspaceFolder}/src/Algorithm",
-        "${workspaceFolder}/src/Animation",
-        "${workspaceFolder}/src/K",
-        "${workspaceFolder}/src/main",
-        "${workspaceFolder}/src/math",
-        "${workspaceFolder}/src/Maze",
-        "${workspaceFolder}/src/Scenes",
-        "${workspaceFolder}/src/UI",
-        "${workspaceFolder}/src/Timer",
-        "${workspaceFolder}/test"
-      ],
+      "includePath": ["${workspaceFolder}/src/math", "${workspaceFolder}/src"],
       "defines": [],
       "macFrameworkPath": [
         "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks"

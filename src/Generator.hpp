@@ -1,8 +1,6 @@
 #pragma once
 
 #include "DisjSet.hpp"
-#include "Maze.hpp"
-#include "Grid.hpp"
 #include "K.hpp"
 #include "Scene.hpp"
 
@@ -34,18 +32,13 @@ private:
     int iterations; /* number of iterations of the scene */
     bool foundNext; /* whether a cell is to be updated in current iteration */
 
-    struct Current
-    {
-        Matrix::Coord maze_coord;
-        Dir::dir_t dir;
-    };
-
-    Current current;
+    Matrix::Coord current_maze_coord;
+    Dir::dir_t current_dir;
 
     // colors the cell at given coord in the maze to the scene color
     void colorCell(Matrix::Coord coord)
     {
-        grid->cells[coord.as1D(grid->matrix)].setFillColor(color);
+        data.grid->cells[coord.as1D(data.grid->matrix)].setFillColor(color);
     }
 
     // helper to check if there is a path between two cells in the maze
@@ -53,6 +46,9 @@ private:
     {
         return set.find(x) == set.find(y);
     }
+
+    // Helper
+    void next(Matrix::Coord coord, Dir::dir_t dir);
 
 public:
     // next iteration
@@ -64,7 +60,7 @@ public:
     // checks if there is a path from start to end in the maze
     bool finished() override
     {
-        return hasPath(maze->start, maze->end);
+        return hasPath(data.maze->start, data.maze->end);
     }
 
     void log() const
@@ -73,12 +69,10 @@ public:
         std::cout << "set: " << set << std::endl;
     }
 
-    explicit Generator(std::shared_ptr<Grid> grid,
-                       std::shared_ptr<Maze> maze,
-                       std::shared_ptr<std::vector<Matrix::Coord>> path) : Scene(grid, maze, path, K::col_path),
-                                                                           set(maze->matrix.size()),
-                                                                           iterations(0),
-                                                                           foundNext(false)
+    explicit Generator(SceneData &data) : Scene(data, K::col_path),
+                                          set(data.maze->matrix.size()),
+                                          iterations(0),
+                                          foundNext(false)
     {
     }
 };

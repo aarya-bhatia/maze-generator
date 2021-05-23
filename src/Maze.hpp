@@ -11,18 +11,19 @@ struct Maze
 {
     int width;
     int height;
-    int start;
-    int end;
 
     Matrix matrix;
     std::vector<int> edges;
 
+    int start;
+    int end;
+
     explicit Maze(int width, int height) : width(width),
                                            height(height),
-                                           start(0),
-                                           end(matrix.size() - 1),
                                            matrix(width, height),
-                                           edges(matrix.size())
+                                           edges(matrix.size()),
+                                           start(0),
+                                           end(matrix.size() - 1)
     {
     }
 

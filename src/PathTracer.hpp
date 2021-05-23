@@ -1,25 +1,20 @@
+#pragma once
+
 #include "Scene.hpp"
 #include "Grid.hpp"
-
-#ifndef PATH_TRACER_HPP
-#define PATH_TRACER_HPP
 
 class PathTracer : public Scene
 {
 public:
     Matrix::Coord current;
-    Matrix::Coord start;
-    Matrix::Coord end;
+    bool tracing;
 
-    PathTracer(std::shared_ptr<Grid> grid,
-               std::shared_ptr<Maze> maze,
-               std::shared_ptr<std::vector<Matrix::Coord>> path) : Scene(grid, maze, path, K::col_tracer)
+    explicit PathTracer(SceneData &data) : Scene(data, K::col_tracer), current(data.end), tracing(true)
     {
-        init();
     }
 
-    void init() override;
     void next() override;
+
     bool finished() override;
 
     /**
@@ -32,5 +27,3 @@ public:
      */
     void log() const;
 };
-
-#endif

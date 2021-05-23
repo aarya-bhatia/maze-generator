@@ -9,15 +9,11 @@
  */
 namespace K
 {
-    extern const bool AUTOPLAY; /* whether to run animation automatically */
-    extern const bool DEBUG;    /* whether to enable debug console logs */
-    extern const bool OUTLINE;  /* whether to outline cells */
+    extern bool AUTOPLAY; /* whether to run animation automatically */
+    extern bool DEBUG;    /* whether to enable debug console logs */
+    extern bool OUTLINE;  /* whether to outline cells */
 
-    extern const bool TRACER; /* whether to enable path tracer */
-    extern const bool SOLVER; /* whether to enable maze solver */
-
-    extern const char *title; /* window title */
-
+    extern const char *title;       /* window title */
     extern const int screen_width;  /* width of window in pixels */
     extern const int screen_height; /* height of window in pixels */
 
