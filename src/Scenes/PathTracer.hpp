@@ -1,29 +1,31 @@
+#include "Scene.hpp"
 #include "Grid.hpp"
 
 #ifndef PATH_TRACER_HPP
 #define PATH_TRACER_HPP
 
-class PathTracer
+class PathTracer : public Scene
 {
 public:
-    std::vector<int> path;
-    int current; // the cell we are currently at
-    int start;
-    int end;
+    Matrix::Coord current;
+    Matrix::Coord start;
+    Matrix::Coord end;
 
-    PathTracer(const Maze &maze, const Grid &grid, const std::vector<int> &p) : path(p)
+    PathTracer(std::shared_ptr<Grid> grid,
+               std::shared_ptr<Maze> maze,
+               std::shared_ptr<std::vector<Matrix::Coord>> path) : Scene(grid, maze, path, K::col_tracer)
     {
-        init(maze, grid);
+        init();
     }
 
-    void init(const Maze &, const Grid &);
-    void next();
-    bool finished() const;
+    void init() override;
+    void next() override;
+    bool finished() override;
 
     /**
      * updates the color of the cell color currently being traced by the path tracer
      */
-    void update(Grid &grid);
+    void update() override;
 
     /**
      * Print actual path

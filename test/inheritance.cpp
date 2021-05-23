@@ -28,7 +28,7 @@ struct Button : public Component
     }
 };
 
-int main()
+int InheritanceTest()
 {
     Component b;
     Button b1;

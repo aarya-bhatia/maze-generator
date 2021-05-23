@@ -1,8 +1,7 @@
-#include "Dir.hpp"
-
-#include <iostream>
-
 #pragma once
+
+#include "Dir.hpp"
+#include <iostream>
 
 namespace Math
 {
@@ -46,11 +45,35 @@ namespace Math
         // Represents a single cell of the matrix as 2D (row, col)
         class Coord
         {
+        private:
+            static Coord *Null;
+
         public:
             int row;
             int col;
 
-            explicit Coord(int row = 0, int col = 0) : row(row), col(col) {}
+            static Coord *getNull()
+            {
+                if (Null == nullptr)
+                {
+                    Null = new Coord(-1, -1);
+                }
+
+                return Null;
+            }
+
+            static bool isNull(const Coord &c)
+            {
+                if (Null == nullptr)
+                {
+                    Null = new Coord(-1, -1);
+                }
+                return &c == Null;
+            }
+
+            explicit Coord(int row = 0, int col = 0) : row(row), col(col)
+            {
+            }
 
             // construct coord from another coord
             Coord(const Coord &c) : row(c.row), col(c.col) {}

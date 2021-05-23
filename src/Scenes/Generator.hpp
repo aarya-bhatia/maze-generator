@@ -6,8 +6,6 @@
 #include "K.hpp"
 #include "Scene.hpp"
 
-#include <memory>
-
 //
 // Maze Generator Scene class
 //
@@ -75,10 +73,12 @@ public:
         std::cout << "set: " << set << std::endl;
     }
 
-    explicit Generator(std::shared_ptr<Grid> grid) : Scene(grid, K::col_path),
-                                                     set(maze->matrix.size()),
-                                                     iterations(0),
-                                                     foundNext(false)
+    explicit Generator(std::shared_ptr<Grid> grid,
+                       std::shared_ptr<Maze> maze,
+                       std::shared_ptr<std::vector<Matrix::Coord>> path) : Scene(grid, maze, path, K::col_path),
+                                                                           set(maze->matrix.size()),
+                                                                           iterations(0),
+                                                                           foundNext(false)
     {
     }
 };

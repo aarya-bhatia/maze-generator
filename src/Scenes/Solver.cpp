@@ -1,17 +1,15 @@
-#include "MazeSolver.hpp"
+#include "Solver.hpp"
 
 void Solver::init()
 {
-    start = grid.getMazeCell(maze.row(maze.start), maze.column(maze.start));
-    end = grid.getMazeCell(maze.row(maze.end), maze.column(maze.end));
+    start = Matrix::mapToGrid(maze->matrix.as2D(maze->start));
+    end = Matrix::mapToGrid(maze->matrix.as2D(maze->end));
+    visited = std::vector<bool>(grid->matrix.size());
 
-    visited = std::vector<bool>(size());
-    path = std::vector<int>(size());
-
-    for (int i = 0; i < size(); i++)
+    for (int i = 0; i < grid->matrix.size(); i++)
     {
         visited[i] = false;
-        path[i] = -1;
+        (*path)[i] = *Matrix::Coord::getNull();
     }
 
     while (!queue.empty())
@@ -27,6 +25,9 @@ void Solver::init()
     }
 }
 
+/**
+ * Main Algorithm
+ */
 void Solver::next()
 {
     if (finished())
@@ -39,7 +40,26 @@ void Solver::next()
     {
         current = queue.front();
         queue.pop();
-        update();
+
+        Matrix::Coord mazeCoord = Matrix::mapToMaze(current);
+
+        // Visit the neighbours in all four directions of the current cell.
+        // Add each neighbour to the queue if it is not explored yet.
+        for (int i = 1; i <= 4; i++)
+        {
+            Dir::dir_t dir = static_cast<Dir::dir_t>(i);
+
+            if (mazeCoord.has(maze->matrix, dir) &&
+                current.has(grid->matrix, dir) &&
+                maze->hasEdge(mazeCoord, dir) &&
+                !visited[current.get(dir).as1D(grid->matrix)])
+            {
+                Matrix::Coord neighbour = current.get(dir);
+                visited[neighbour.as1D(grid->matrix)] = true;
+                (*path)[neighbour.as1D(grid->matrix)] = current;
+                queue.push(neighbour);
+            }
+        }
     }
     else
     {
@@ -47,58 +67,18 @@ void Solver::next()
     }
 }
 
-void Solver::visit(int cell)
-{
-    visited[cell] = true;
-    path[cell] = current;
-    queue.push(cell);
-}
-
-void Solver::update()
-{
-    int mazeCell = maze.getGridCell(grid.row(current), grid.col(current));
-    int gridLeft = grid.left(current);
-    int gridRight = grid.right(current);
-    int gridTop = grid.top(current);
-    int gridBottom = grid.bottom(current);
-
-    if (maze.hasTop(mazeCell) && maze.hasEdge(mazeCell, maze.TOP) &&
-        grid.hasTop(current) && !visited[gridTop])
-    {
-        visit(gridTop);
-    }
-
-    if (maze.hasRight(mazeCell) && maze.hasEdge(mazeCell, maze.RIGHT) &&
-        grid.hasRight(current) && !visited[gridRight])
-    {
-        visit(gridRight);
-    }
-
-    if (maze.hasBottom(mazeCell) && grid.hasBottom(current) &&
-        maze.hasEdge(mazeCell, maze.BOTTOM) && !visited[gridBottom])
-    {
-        visit(gridBottom);
-    }
-
-    if (maze.hasLeft(mazeCell) && grid.hasLeft(current) &&
-        maze.hasEdge(mazeCell, maze.LEFT) && !visited[gridLeft])
-    {
-        visit(gridLeft);
-    }
-}
-
 void Solver::log() const
 {
 
     std::cout << "Path: [";
-    for (int i = 0; i < size(); i++)
+    for (int i = 0; i < grid->matrix.size(); i++)
     {
-        std::cout << path[i] << " ";
+        std::cout << (*path)[i] << " ";
     }
     std::cout << "]\n";
 
     int c = 0;
-    for (int i = 0; i < size(); i++)
+    for (int i = 0; i < grid->matrix.size(); i++)
     {
         if (visited[i])
         {
@@ -106,5 +86,5 @@ void Solver::log() const
         }
     }
     std::cout << "Visited cells: " << c << std::endl;
-    std::cout << "Unvisited cells: " << size() - c << std::endl;
+    std::cout << "Unvisited cells: " << grid->matrix.size() - c << std::endl;
 }

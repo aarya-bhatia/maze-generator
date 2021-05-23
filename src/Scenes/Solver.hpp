@@ -3,34 +3,30 @@
 #include "Grid.hpp"
 #include <queue>
 
+#include "Scene.hpp"
+
 #ifndef MAZE_SOLVER_HPP
 #define MAZE_SOLVER_HPP
 
 /**
  * Solves the maze step by step using BFS
  */
-class Solver
+class Solver : public Scene
 {
 private:
     std::vector<bool> visited;
-    std::queue<int> queue;
+    std::queue<Matrix::Coord> queue;
 
-    const Maze &maze;
-    const Grid &grid;
-
-    int start;
-    int end;
-
-    /**
-     * updates the queue with unvisited neighbours of current cell
-     */
-    void update();
+    Matrix::Coord start;
+    Matrix::Coord end;
+    Matrix::Coord current; /* The cell currently being explored */
 
 public:
-    std::vector<int> path; /* stores the order in which cells are explored */
-    int current;           /* The cell currently being explored */
-
-    explicit Solver(const Maze &m, const Grid &g) : maze(m), grid(g), current(-1)
+    explicit Solver(std::shared_ptr<Grid> grid,
+                    std::shared_ptr<Maze> maze,
+                    std::shared_ptr<std::vector<Matrix::Coord>> path)
+        : Scene(grid, maze, path, K::col_explore),
+          current(*Matrix::Coord::getNull())
     {
         init();
     }
@@ -38,41 +34,31 @@ public:
     /**
      * updates the color of the cell currently being explored by the maze solver
      */
-    void update(Grid &grid)
+    void update() override
     {
-        grid.cells[current].setFillColor(K::col_explore);
+        grid->cells[current.as1D(grid->matrix)].setFillColor(color);
     }
 
     /**
      * initialise data members
      */
-    void init();
-
-    /**
-     * @return grid cell count
-     */
-    int size() const
-    {
-        return grid.size();
-    }
+    void init() override;
 
     /**
      * advance current to next cell in the search and update the queue
      */
-    void next();
+    void next() override;
 
     /**
      * @return checks if search is completed
      */
-    bool finished() const
+    bool finished() override
     {
         return current == end;
     }
 
-    void visit(int cell);
-
     /**
-     * Print K::DEBUG info
+     * Print DEBUG info
      */
     void log() const;
 };

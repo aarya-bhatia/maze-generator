@@ -10,7 +10,7 @@ namespace Math
         ///
         void setOn(int &field, int bit)
         {
-            field = field | (1 << bit);
+            field |= (1 << bit);
         }
 
         ///
@@ -19,7 +19,7 @@ namespace Math
         ///
         void setOff(int &field, int bit)
         {
-            field = field & ~(field & (1 << bit));
+            field &= ~(1 << bit);
         }
 
         ///

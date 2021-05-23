@@ -1,9 +1,9 @@
+#pragma once
+
 #include "Bits.hpp"
 #include "Matrix.hpp"
 
 #include <vector>
-
-#pragma once
 
 using namespace Math;
 
@@ -17,12 +17,12 @@ struct Maze
     Matrix matrix;
     std::vector<int> edges;
 
-    Maze(int width, int height) : width(width),
-                                  height(height),
-                                  start(0),
-                                  end(matrix.size() - 1),
-                                  matrix(width, height),
-                                  edges(matrix.size())
+    explicit Maze(int width, int height) : width(width),
+                                           height(height),
+                                           start(0),
+                                           end(matrix.size() - 1),
+                                           matrix(width, height),
+                                           edges(matrix.size())
     {
     }
 

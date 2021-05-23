@@ -1,114 +1,118 @@
+#pragma once
+
 #include "Scene.hpp"
 #include "Grid.hpp"
-
 #include "Generator.hpp"
 #include "Solver.hpp"
 #include "PathTracer.hpp"
 
+#include <memory>
 #include <list>
+#include <queue>
+#include <vector>
 
-#pragma once
-
-static Scene *createGenerator(Grid &grid)
+std::unique_ptr<Scene> createGenerator(std::shared_ptr<Grid> grid, std::shared_ptr<Maze> maze, std::shared_ptr<std::vector<Matrix::Coord>> path)
 {
-    return new Generator(grid);
+    return std::unique_ptr<Scene>(new Generator(grid, maze, path));
 }
 
-static Scene *createSolver(Grid &grid)
+std::unique_ptr<Scene> createSolver(std::shared_ptr<Grid> grid, std::shared_ptr<Maze> maze, std::shared_ptr<std::vector<Matrix::Coord>> path)
 {
-    return new Solver(grid);
+    return std::unique_ptr<Scene>(new Solver(grid, maze, path));
 }
 
-static Scene *createTracer(Grid &grid)
+std::unique_ptr<Scene> createTracer(std::shared_ptr<Grid> grid, std::shared_ptr<Maze> maze, std::shared_ptr<std::vector<Matrix::Coord>> path)
 {
-    return new Tracer(grid);
+    return std::unique_ptr<Scene>(new PathTracer(grid, maze, path));
 }
 
-struct SceneCreator
+class Animation : public Component
 {
-    typedef Scene *(*new_scene)(Grid &);
+private:
+    std::shared_ptr<Maze> maze;
+    std::shared_ptr<Grid> grid;
+    std::shared_ptr<std::vector<Matrix::Coord>> path;
+    std::vector<std::unique_ptr<Scene>> scenes;
 
-    std::list<new_scene> scenes;
-
-    void push(new_scene scene)
+    struct task
     {
-        scenes.push_back(scene);
-    }
-
-    Scene *pop(Grid &grid)
-    {
-        new_scene scene = scenes.front();
-        scenes.pop_front();
-        return scene(grid);
-    }
-};
-
-struct Animation : public Component
-{
-    Grid *grid;
-    SceneCreator builder;
-    std::vector<Scene *> scenes;
-    Scene *scene;
-
-    enum SceneType
-    {
-        Generator,
-        Solver,
-        Tracer
+        int id;
+        std::unique_ptr<Scene> (*fptr)(std::shared_ptr<Grid> grid, std::shared_ptr<Maze> maze, std::shared_ptr<std::vector<Matrix::Coord>> path);
     };
 
+    std::queue<task> queue;
+
+    int sceneIndex;
+    int numScenes;
+
+public:
     void update() override
     {
-        if (scene == nullptr)
+        if (finished())
         {
             return;
         }
 
-        if (scene->finished())
+        if (scenes[sceneIndex]->finished())
         {
+            assert(!queue.empty());
             nextScene();
         }
-        else
+
+        std::unique_ptr<Scene> &scene = scenes[sceneIndex];
+        scene->next();
+        scene->update();
+    }
+
+    bool finished()
+    {
+        return sceneIndex >= numScenes;
+    }
+
+    void render(sf::RenderWindow &window) override
+    {
+        if (!finished())
         {
-            scene->next();
-            scene->update();
+            scenes[sceneIndex]->render(window);
         }
     }
 
-    Scene *nextScene()
+    void nextScene()
     {
-        scenes.push_back(builder.pop(*grid));
-        scene = scenes.back();
-    }
-
-    void changeScene(SceneType num)
-    {
-        grid->reset();
-        scene = scenes[num];
+        if (queue.empty())
+        {
+            if (K::DEBUG)
+            {
+                std::cout << __FILE__ << ":" << __LINE__ << ": Scene queue is empty" << std::endl;
+            }
+            return;
+        }
+        if (K::DEBUG)
+        {
+            std::cout << __FILE__ << ":" << __LINE__ << ": Starting Next Scene: ID=" << queue.front().id << std::endl;
+        }
+        scenes[sceneIndex++] = queue.front().fptr(grid, maze, path);
+        queue.pop();
     }
 
     void init()
     {
-        builder = SceneCreator();
-        builder.push((SceneCreator::new_scene)createGenerator);
-        builder.push((SceneCreator::new_scene)createSolver);
-        builder.push((SceneCreator::new_scene)createTracer);
+        queue = std::queue<task>();
+        queue.push((task){1, &createGenerator});
+        queue.push((task){2, &createSolver});
+        queue.push((task){3, &createTracer});
 
-        grid = new Grid(maze_rows, maze_cols);
-        nextScene();
+        numScenes = queue.size();
+        assert(numScenes == 3);
+
+        scenes = std::vector<std::unique_ptr<Scene>>(numScenes);
+
+        maze = std::make_shared<Maze>(K::maze_cols, K::maze_rows);
+        grid = std::make_shared<Grid>(maze->matrix);
     }
 
-    Animation()
+    Animation() : sceneIndex(-1)
     {
-    }
-
-    ~Animation()
-    {
-        while (!scenes.empty())
-        {
-            Scene *scene = scenes.back();
-            scenes.pop_back();
-            delete scene;
-        }
+        init();
     }
 };

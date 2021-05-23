@@ -2,37 +2,37 @@
 
 void PathTracer::next()
 {
-    if (current != -1)
+    if (current != *Matrix::Coord::getNull())
     {
-        current = path[current];
+        current = (*path)[current.as1D(grid->matrix)];
     }
 }
 
-bool PathTracer::finished() const
+bool PathTracer::finished()
 {
-    return current == -1;
+    return Matrix::Coord::isNull(current);
 }
 
-void PathTracer::init(const Maze &maze, const Grid &grid)
+void PathTracer::init()
 {
-    start = grid.getMazeCell(maze.row(maze.start), maze.column(maze.start));
-    end = grid.getMazeCell(maze.row(maze.end), maze.column(maze.end));
+    start = Matrix::mapToGrid(maze->matrix.as2D(maze->start));
+    end = Matrix::mapToGrid(maze->matrix.as2D(maze->end));
     current = end;
 }
 
-void PathTracer::update(Grid &grid)
+void PathTracer::update()
 {
-    grid.cells[current].setFillColor(K::col_tracer);
+    grid->cells[current.as1D(grid->matrix)].setFillColor(color);
 }
 
 void PathTracer::log() const
 {
     std::cout << "Path: [";
-    int tmp = current;
-    while (tmp != -1 && tmp != start)
+    Matrix::Coord tmp = current;
+    while (Matrix::Coord::isNull(tmp) && tmp != start)
     {
         std::cout << tmp << " ";
-        tmp = path[tmp];
+        tmp = (*path)[tmp.as1D(grid->matrix)];
     }
     std::cout << tmp << " ";
     std::cout << "]" << std::endl;

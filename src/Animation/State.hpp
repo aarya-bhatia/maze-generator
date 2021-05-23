@@ -5,7 +5,7 @@
 
 struct State
 {
-    unsigned int state;
+    int state;
 
     // todo make a menu state containing quit help settings flags
     // state should have a flag for menu, if menu is on,
@@ -17,39 +17,44 @@ struct State
 
     enum flags
     {
-        generating = 1,
-        exploring,
-        tracing,
-        paused,
-        showMenu,
-        autoplay,
+        paused = 1,
+        menu,
         quit,
-        help,
-        loadError,
-        settings
+        error
     };
 
     void on(flags flag)
     {
-        state = state | (1 << flag);
+        Math::Bits::setOn(state, flag);
     }
 
     void off(flags flag)
     {
-        state = state & ~(state & (1 << flag));
+        Math::Bits::setOff(state, flag);
     }
 
     bool is(flags flag) const
     {
-        return state & (1 << flag);
+        return Math::Bits::contains(state, flag);
     }
 
     bool isNot(flags flag) const
     {
-        return !is(flag);
+        return !Math::Bits::contains(state, flag);
     }
 
-    static State *create();
+    static State *create()
+    {
+        State *state = new State;
+
+        state->on(State::paused);
+        state->on(State::showMenu);
+
+        assert(state->is(State::paused));
+        assert(state->is(State::showMenu));
+
+        return state;
+    }
 };
 
 #endif

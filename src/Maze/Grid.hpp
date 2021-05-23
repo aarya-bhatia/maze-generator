@@ -9,11 +9,9 @@
 
 ///
 // A grid class contains a list of cells as sf::RectangleShapes.
-//
 // The grid contains twice (minus one) the rows and cols of
 // the maze because adjacent cells are used to represent
 // the "walls" of the maze.
-///
 class Grid
 {
 private:
