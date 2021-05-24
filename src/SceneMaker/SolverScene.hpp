@@ -5,7 +5,7 @@
 
 struct SolverScene : public SceneMaker
 {
-    Scene *operator()(SceneData &data) override
+    Scene *operator()(const SceneData *data) override
     {
         return new Solver(data);
     }

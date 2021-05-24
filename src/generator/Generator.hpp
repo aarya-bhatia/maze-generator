@@ -38,7 +38,7 @@ private:
     // colors the cell at given coord in the maze to the scene color
     void colorCell(Matrix::Coord coord)
     {
-        data.grid->cells[coord.as1D(data.grid->matrix)].setFillColor(color);
+        data->grid->cells[coord.as1D(data->grid->matrix)].setFillColor(color);
     }
 
     // helper to check if there is a path between two cells in the maze
@@ -60,7 +60,7 @@ public:
     // checks if there is a path from start to end in the maze
     bool finished() override
     {
-        return hasPath(data.maze->start, data.maze->end);
+        return hasPath(data->maze->start, data->maze->end);
     }
 
     void log() const
@@ -69,10 +69,10 @@ public:
         std::cout << "set: " << set << std::endl;
     }
 
-    explicit Generator(SceneData &data) : Scene(data, K::col_path),
-                                          set(data.maze->matrix.size()),
-                                          iterations(0),
-                                          foundNext(false)
+    explicit Generator(const SceneData *data) : Scene(data, K::col_path),
+                                                set(data->maze->matrix.size()),
+                                                iterations(0),
+                                                foundNext(false)
     {
         if (K::DEBUG)
         {

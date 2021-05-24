@@ -32,4 +32,14 @@ struct Logger
         }
         ofs.close();
     }
+
+    static const std::string getLogFilePath()
+    {
+        return std::string("logs/") + Logger::getCurrentDateTime("now") + std::string(".txt");
+    }
+
+    static void logToFile()
+    {
+        freopen(getLogFilePath().c_str(), "w", stdout);
+    }
 };

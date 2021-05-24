@@ -1,0 +1,58 @@
+src/Component.hpp constructor
+src/application/Animation.cpp constructor
+TaskQueue constructor
+src/Scenes/SceneData.h constructor
+src/model/Maze.hpp constructor
+src/model/Grid.hpp constructor
+Path constructor
+TaskQueue constructor
+src/Scenes/SceneData.h constructor
+src/model/Maze.hpp constructor
+src/model/Grid.hpp constructor
+Path constructor
+src/application/ImageManager.hpp constructor
+src/application/FontManager.hpp constructor
+Fonts loaded successfully
+Images loaded successfuly
+src/Component.hpp constructor
+src/Scenes/AbstractScene.hpp constructor
+src/Scenes/Scene.hpp constructor
+src/generator/DisjSet.cpp constructor
+src/generator/Generator.hpp constructor
+Starting Next Scene: ID=1
+src/Component.hpp constructor
+src/Scenes/AbstractScene.hpp constructor
+src/Scenes/Scene.hpp constructor
+src/solver/Solver.hpp constructor
+src/solver/Solver.cpp: 14: To solve data->maze from cell (0,0) to cell (4,4)
+Starting Next Scene: ID=2
+src/generator/Generator.hpp destructor
+src/generator/DisjSet.hpp destructor
+src/Scenes/Scene.hpp destructor
+src/Scenes/AbstractScene.hpp destructor
+src/Component.hpp destructor
+src/Component.hpp constructor
+src/Scenes/AbstractScene.hpp constructor
+src/Scenes/Scene.hpp constructor
+PathTracer constructor
+Path: [(4,4) (4,3) (4,2) (3,2) (2,2) (1,2) (0,2) (0,1) (0,0) ]
+Starting Next Scene: ID=3
+src/solver/Solver.hpp destructor
+src/Scenes/Scene.hpp destructor
+src/Scenes/AbstractScene.hpp destructor
+src/Component.hpp destructor
+src/application/Animation.cpp destructor
+src/application/Animation.cpp: Destroying scenes..
+src/tracer/PathTracer.hpp destructor
+src/Scenes/Scene.hpp destructor
+src/Scenes/AbstractScene.hpp destructor
+src/Component.hpp destructor
+src/Scenes/SceneData.h destructor
+Path Destructor
+src/model/Maze.hpp destructor
+src/model/Grid.hpp destructor
+TaskQueue destructor
+src/Component.hpp destructor
+src/application/FontManager.hpp destructor
+src/application/ImageManager.hpp destructor
+EXITING PROGRAM

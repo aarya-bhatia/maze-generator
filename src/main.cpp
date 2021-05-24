@@ -9,15 +9,21 @@
 #include <SFML/Window/VideoMode.hpp>
 #include <SFML/Window/Event.hpp>
 
-int main()
+sf::RenderWindow *createWindow()
 {
     sf::ContextSettings settings;
     settings.antialiasingLevel = 6;
-
     sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode(K::screen_width, K::screen_height), K::title, sf::Style::Default, settings);
-
-    assert(window != nullptr);
     window->setFramerateLimit(20);
+    return window;
+}
+
+int main()
+{
+    Logger::logToFile();
+
+    sf::RenderWindow *window = createWindow();
+    assert(window != nullptr);
 
     Animation *app = new Animation;
     app->init();
@@ -28,23 +34,19 @@ int main()
     if (fonts->load())
     {
         std::cout << "Fonts loaded successfully" << std::endl;
-        // Logger::log("Fonts loaded successfully");
     }
     else
     {
         std::cout << "Failed to load fonts" << std::endl;
-        // Logger::log("Failed to load fonts");
     }
 
     if (images->load())
     {
         std::cout << "Images loaded successfuly" << std::endl;
-        Logger::log("Images loaded successfully");
     }
     else
     {
         std::cout << "Failed to load images" << std::endl;
-        Logger::log("Failed to load images");
     }
 
     bool error = fonts == nullptr || images == nullptr;

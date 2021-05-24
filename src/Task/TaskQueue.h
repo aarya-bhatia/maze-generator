@@ -1,32 +1,32 @@
 #pragma once
 
-#include "Scene.hpp"
+#include "Task.hpp"
 #include <queue>
 
 class TaskQueue
 {
-public:
-    struct Task
-    {
-        int id;
-        Scene *(*fptr)(SceneData &);
-    };
+private:
+    std::queue<Task *> queue;
 
-    int countPending() const
+public:
+    int size() const
     {
         return queue.size();
     }
 
-    void add(Task task)
+    void enqueue(Task *task)
     {
         queue.push(task);
     }
 
-    Task next()
+    void dequeue()
     {
-        auto ret = queue.front();
         queue.pop();
-        return ret;
+    }
+
+    Task *peek() const
+    {
+        return queue.front();
     }
 
     bool finished() const
@@ -49,7 +49,4 @@ public:
             std::cout << "TaskQueue destructor" << std::endl;
         }
     }
-
-private:
-    std::queue<Task> queue;
 };

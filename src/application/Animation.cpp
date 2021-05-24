@@ -1,5 +1,12 @@
 #include "Animation.hpp"
 
+#include "GeneratorTask.hpp"
+#include "SolverTask.hpp"
+#include "TracerTask.hpp"
+
+//
+// update the scene
+//
 void Animation::update()
 {
     if (!finished())
@@ -20,7 +27,9 @@ void Animation::update()
     }
 }
 
-// Event is handled by the current scene.
+//
+// pass event handling to scene
+//
 void Animation::handleEvent(const sf::Event &event)
 {
     if (scene != nullptr)
@@ -29,33 +38,53 @@ void Animation::handleEvent(const sf::Event &event)
     }
 }
 
-// Change the scene when the scene is over
+//
+// Deletes the current scene and creates next one.
+// The scene is created by invoking the SceneMaker functor,
+// which is accessed by retrieving the next task from
+// the task queue...
+//
 void Animation::nextScene()
 {
     if (!taskQueue->finished())
     {
-        if (scene != nullptr)
+        Scene *previousScene = scene;
+
+        Task *task = taskQueue->peek(); // get next task
+        taskQueue->dequeue();           // dequeue the next task
+
+        // invoke the scene maker functor to create the next scene
+
+        scene = (*task->maker)(sceneData);
+        std::cout << "Starting Next Scene: ID=" << task->id << std::endl;
+
+        // Cleanup
+
+        if (previousScene != nullptr)
         {
-            scenes.push_front(scene);
+            delete previousScene;
         }
 
-        TaskQueue::Task task = taskQueue->next(); // get next task
+        // The task will delete the scene maker
+        if (task != nullptr)
+        {
+            delete task;
+        }
 
-        // invoke task function pointer to create the next scene
-        scene = task.fptr(*sceneData);
-
-        std::cout << "Starting Next Scene: ID=" << task.id << std::endl;
+        // Not updating scenes list here.. i dont think we need the previous scenes to stay
     }
 }
 
 void Animation::init()
 {
-    taskQueue = new TaskQueue(); // task queue stores function pointers to allow Lazy Loading.
-    taskQueue->add((TaskQueue::Task){1, &createGenerator});
-    taskQueue->add((TaskQueue::Task){2, &createSolver});
-    taskQueue->add((TaskQueue::Task){3, &createTracer});
+    // task queue is used for Lazy Loading scenes...
+    taskQueue = new TaskQueue();
 
-    sceneData = new SceneData(); // data shared among the scenes
+    taskQueue->enqueue(new GeneratorTask(1));
+    taskQueue->enqueue(new SolverTask(2));
+    taskQueue->enqueue(new TracerTask(3));
+
+    sceneData = new SceneData(); // This data is shared among the scenes
     scene = nullptr;             // there is no current scene initially
 }
 
@@ -106,6 +135,16 @@ Animation::~Animation()
         }
     }
 
-    delete sceneData;
-    delete taskQueue;
+    if (scene != nullptr)
+    {
+        delete scene;
+    }
+    if (sceneData != nullptr)
+    {
+        delete sceneData;
+    }
+    if (taskQueue != nullptr)
+    {
+        delete taskQueue;
+    }
 }

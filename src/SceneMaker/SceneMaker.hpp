@@ -4,5 +4,6 @@
 
 struct SceneMaker
 {
-    virtual Scene *operator()(SceneData &data) = 0;
+    virtual Scene *operator()(const SceneData *data) = 0;
+    virtual ~SceneMaker() {}
 };

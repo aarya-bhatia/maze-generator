@@ -8,10 +8,10 @@
 class Scene : public AbstractScene
 {
 protected:
-    SceneData &data;
-    sf::Color color;
+    const SceneData *data;
+    const sf::Color color;
 
-    explicit Scene(SceneData &data, const sf::Color &color) : data(data), color(color)
+    explicit Scene(const SceneData *data, const sf::Color &color) : data(data), color(color)
     {
         if (K::DEBUG)
         {
@@ -22,7 +22,7 @@ protected:
 public:
     virtual void render(sf::RenderWindow &window) override
     {
-        data.grid->render(window);
+        data->grid->render(window);
     }
 
     virtual void handleEvent(const sf::Event &event) override

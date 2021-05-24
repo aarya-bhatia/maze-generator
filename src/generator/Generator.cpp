@@ -11,13 +11,13 @@ void Generator::next()
         Dir::dir_t dir = static_cast<Dir::dir_t>(rand() % 4);
 
         // Pick random cell
-        Matrix::Coord coord = data.maze->matrix.as2D(rand() % set.size());
+        Matrix::Coord coord = data->maze->matrix.as2D(rand() % set.size());
 
         // If there isn't a path from this coord to its neighbour in the
         // specific direction.
-        if (coord.has(data.maze->matrix, dir) &&
-            !hasPath(coord.as1D(data.maze->matrix),
-                     coord.get(dir).as1D(data.maze->matrix)))
+        if (coord.has(data->maze->matrix, dir) &&
+            !hasPath(coord.as1D(data->maze->matrix),
+                     coord.get(dir).as1D(data->maze->matrix)))
         {
             next(coord, dir);
         }
@@ -28,12 +28,12 @@ void Generator::next()
 void Generator::next(Matrix::Coord coord, Dir::dir_t dir)
 {
     // update the union set with the coord and its neighbour
-    set.make_union(coord.as1D(data.maze->matrix), coord.get(dir).as1D(data.maze->matrix));
+    set.make_union(coord.as1D(data->maze->matrix), coord.get(dir).as1D(data->maze->matrix));
 
     // update the maze by adding the corresponding edges in both directions
     // that is, from coord to neighbour and back
-    data.maze->addEdge(coord.as1D(data.maze->matrix), dir);
-    data.maze->addEdge(coord.get(dir).as1D(data.maze->matrix), static_cast<Dir::dir_t>(Dir::inverse(dir)));
+    data->maze->addEdge(coord.as1D(data->maze->matrix), dir);
+    data->maze->addEdge(coord.get(dir).as1D(data->maze->matrix), static_cast<Dir::dir_t>(Dir::inverse(dir)));
 
     // update the current maze coord and direction for the render method
     current_maze_coord = coord;

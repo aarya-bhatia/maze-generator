@@ -2,16 +2,16 @@
 
 void Solver::init()
 {
-    for (int i = 0; i < data.grid->matrix.size(); i++)
+    for (int i = 0; i < data->grid->matrix.size(); i++)
     {
         visited[i] = false;
     }
 
-    queue.push(data.start);
+    queue.push(data->start);
 
     if (K::DEBUG)
     {
-        std::cout << __FILE__ << ": " << __LINE__ << ": To solve data.maze from cell " << data.start << " to cell " << data.end << std::endl;
+        std::cout << __FILE__ << ": " << __LINE__ << ": To solve data->maze from cell " << data->start << " to cell " << data->end << std::endl;
     }
 }
 
@@ -30,10 +30,7 @@ void Solver::next()
     {
         current = queue.front();
         queue.pop();
-
-        // std::cout << __FILE__ << ": Current: " << current << std::endl;
-
-        visited[current.as1D(data.grid->matrix)] = true;
+        visited[current.as1D(data->grid->matrix)] = true;
 
         Matrix::Coord mazeCoord = Matrix::mapToMaze(current);
 
@@ -43,13 +40,12 @@ void Solver::next()
         {
             Dir::dir_t dir = static_cast<Dir::dir_t>(i);
 
-            if (mazeCoord.has(data.maze->matrix, dir) && current.has(data.grid->matrix, dir) &&
-                data.maze->hasEdge(mazeCoord, dir) && !visited[current.get(dir).as1D(data.grid->matrix)])
+            if (mazeCoord.has(data->maze->matrix, dir) && current.has(data->grid->matrix, dir) &&
+                data->maze->hasEdge(mazeCoord, dir) && !visited[current.get(dir).as1D(data->grid->matrix)])
             {
                 queue.push(current.get(dir));
-                visited[current.get(dir).as1D(data.grid->matrix)] = true;
-                data.path->set(current.get(dir), current);
-                // std::cout << __FILE__ << ": Visiting: " << current.get(dir) << std::endl;
+                visited[current.get(dir).as1D(data->grid->matrix)] = true;
+                data->path->set(current.get(dir), current);
             }
         }
     }
@@ -63,7 +59,7 @@ void Solver::next()
 void Solver::log() const
 {
     int c = 0;
-    for (int i = 0; i < data.grid->matrix.size(); i++)
+    for (int i = 0; i < data->grid->matrix.size(); i++)
     {
         if (visited[i])
         {
@@ -71,5 +67,5 @@ void Solver::log() const
         }
     }
     std::cout << "Visited cells: " << c << std::endl;
-    std::cout << "Unvisited cells: " << data.grid->matrix.size() - c << std::endl;
+    std::cout << "Unvisited cells: " << data->grid->matrix.size() - c << std::endl;
 }

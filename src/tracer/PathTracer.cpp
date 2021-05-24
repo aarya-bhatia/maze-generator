@@ -2,9 +2,9 @@
 
 void PathTracer::next()
 {
-    if (data.path->has(current))
+    if (data->path->has(current))
     {
-        current = data.path->get(current);
+        current = data->path->get(current);
     }
     else
     {
@@ -14,22 +14,22 @@ void PathTracer::next()
 
 bool PathTracer::finished()
 {
-    return data.path->get(current).as1D(data.grid->matrix) == -1 || tracing;
+    return data->path->get(current).as1D(data->grid->matrix) == -1 || tracing;
 }
 
 void PathTracer::update()
 {
-    data.grid->cells[current.as1D(data.grid->matrix)].setFillColor(color);
+    data->grid->cells[current.as1D(data->grid->matrix)].setFillColor(color);
 }
 
 void PathTracer::log() const
 {
     std::cout << "Path: [";
     Matrix::Coord tmp = current;
-    while (data.path->has(tmp))
+    while (data->path->has(tmp))
     {
         std::cout << tmp << " ";
-        tmp = data.path->get(tmp);
+        tmp = data->path->get(tmp);
     }
     std::cout << tmp << " ";
     std::cout << "]" << std::endl;

@@ -7,28 +7,13 @@
 #include "TaskQueue.h"
 #include <queue>
 
-static inline Scene *createGenerator(SceneData &data)
-{
-    return new Generator(data);
-}
-
-static inline Scene *createSolver(SceneData &data)
-{
-    return new Solver(data);
-}
-
-static inline Scene *createTracer(SceneData &data)
-{
-    return new PathTracer(data);
-}
-
 class Animation : public Component
 {
 private:
     SceneData *sceneData;
     TaskQueue *taskQueue;
     Scene *scene;
-    std::list<Scene*>scenes;
+    std::list<Scene *> scenes;
 
     void nextScene();
     bool finished() const;

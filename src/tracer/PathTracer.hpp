@@ -9,7 +9,7 @@ public:
     Matrix::Coord current;
     bool tracing;
 
-    explicit PathTracer(SceneData &data) : Scene(data, K::col_tracer), current(data.end), tracing(true)
+    explicit PathTracer(const SceneData *data) : Scene(data, K::col_tracer), current(data->end), tracing(true)
     {
         if (K::DEBUG)
         {

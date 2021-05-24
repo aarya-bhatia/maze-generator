@@ -1,7 +1,7 @@
 cxx=clang++
 cxxflags=-Wall -std=c++14 -g -o1
 incdirs=$(shell find src -type d)
-incflags=$(addprefix -I, incdirs)
+incflags=$(addprefix -I, $(incdirs))
 cppflags=$(incflags) -MMD -MP
 ldlibs=-lsfml-graphics -lsfml-system -lsfml-window
 src=$(shell find src -name *.cpp)
@@ -15,6 +15,7 @@ obj/%.o: src/%.cpp
 	g++ $(cppflags) $(cxxflags) -c $< -o $@
 
 info:
+	@echo $(cppflags)
 	@echo $(objs)
 
 clean:

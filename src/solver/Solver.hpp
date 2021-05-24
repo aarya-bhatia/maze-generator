@@ -18,11 +18,11 @@ private:
     bool solving;
 
 public:
-    explicit Solver(SceneData &data) : Scene(data, K::col_explore),
-                                       visited(data.grid->matrix.size()),
-                                       queue(),
-                                       current(data.start),
-                                       solving(true)
+    explicit Solver(const SceneData *data) : Scene(data, K::col_explore),
+                                             visited(data->grid->matrix.size()),
+                                             queue(),
+                                             current(data->start),
+                                             solving(true)
     {
         if (K::DEBUG)
         {
@@ -44,7 +44,7 @@ public:
      */
     void update() override
     {
-        data.grid->cells[current.as1D(data.grid->matrix)].setFillColor(color);
+        data->grid->cells[current.as1D(data->grid->matrix)].setFillColor(color);
     }
 
     /**
@@ -62,7 +62,7 @@ public:
      */
     bool finished() override
     {
-        return current == data.end;
+        return current == data->end;
     }
 
     /**

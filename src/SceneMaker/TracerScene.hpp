@@ -5,7 +5,7 @@
 
 struct TracerScene : public SceneMaker
 {
-    Scene *operator()(SceneData &data) override
+    Scene *operator()(const SceneData *data) override
     {
         return new PathTracer(data);
     }
