@@ -52,7 +52,7 @@ public:
         }
     }
 
-    Animation() : sceneData(),
+    Animation() : sceneData(new SceneData()),
                   taskQueue(new TaskQueue()),
                   scene(nullptr)
     {

@@ -85,10 +85,17 @@ void Menu::handleEvent(const sf::Event &event)
         }
         else if (event.key.code == sf::Keyboard::Enter)
         {
-            std::cout << "Selected Item: " << itemLabels[selectedItem] << std::endl;
+            if (K::DEBUG)
+            {
+                std::cout << "Selected Item: " << itemLabels[selectedItem] << std::endl;
+            }
             if (isSelected(Play))
             {
                 K::MENU = false;
+            }
+            else if (isSelected(Quit))
+            {
+                K::QUIT = true;
             }
         }
     }

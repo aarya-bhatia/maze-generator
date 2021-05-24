@@ -22,6 +22,16 @@ int main()
 
     ResourceManager *resources = new ResourceManager(K::BACKGROUND_IMAGE_FILE, K::FONT_CAVIAR_DREAMS_BOLD);
 
+    if (resources->load())
+    {
+        std::cout << "Fonts and images loaded successfully" << std::endl;
+    }
+    else
+    {
+        std::cout << "Failed to load fonts and images." << std::endl;
+        exit(-1);
+    }
+
     sf::RenderWindow *window = createWindow();
     assert(window != nullptr);
 
@@ -30,19 +40,7 @@ int main()
 
     Menu *menu = new Menu(resources);
 
-    if (resources->load())
-    {
-        std::cout << "Fonts and images loaded successfully" << std::endl;
-    }
-
-    else
-    {
-        std::cout << "Failed to load fonts and images." << std::endl;
-    }
-
-    bool error = resources->fonts == nullptr || resources->images == nullptr;
-
-    while (!error && window->isOpen())
+    while (!K::QUIT && window->isOpen())
     {
         sf::Event event;
 
