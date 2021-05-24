@@ -6,20 +6,17 @@
 
 struct Timer
 {
-    std::chrono::steady_clock::time_point startTime;
+    std::chrono::steady_clock::time_point start;
 
-    void start();
-
-    void stop();
-
-    Timer()
+    Timer() : start(std::chrono::high_resolution_clock::now())
     {
-        start();
     }
 
     ~Timer()
     {
-        stop();
+        std::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<float> duration = end - start;
+        std::cout << "Time taken=" << duration.count() * 1.0e6f << " microseconds" << std::endl;
     }
 };
 
