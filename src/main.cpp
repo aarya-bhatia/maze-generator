@@ -1,8 +1,6 @@
-#include "Animation.hpp"
-#include "ImageManager.hpp"
-#include "FontManager.hpp"
-
 #include "Logger.h"
+#include "Animation.hpp"
+#include "Menu.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/ContextSettings.hpp>
@@ -20,7 +18,9 @@ sf::RenderWindow *createWindow()
 
 int main()
 {
-    Logger::logToFile();
+    // Logger::logToFile();
+
+    ResourceManager *resources = new ResourceManager(K::BACKGROUND_IMAGE_FILE, K::FONT_CAVIAR_DREAMS_BOLD);
 
     sf::RenderWindow *window = createWindow();
     assert(window != nullptr);
@@ -28,28 +28,19 @@ int main()
     Animation *app = new Animation;
     app->init();
 
-    ImageManager *images = new ImageManager(K::BACKGROUND_IMAGE_FILE);
-    FontManager *fonts = new FontManager(K::FONT_CAVIAR_DREAMS_BOLD);
+    Menu *menu = new Menu(resources);
 
-    if (fonts->load())
+    if (resources->load())
     {
-        std::cout << "Fonts loaded successfully" << std::endl;
+        std::cout << "Fonts and images loaded successfully" << std::endl;
     }
+
     else
     {
-        std::cout << "Failed to load fonts" << std::endl;
+        std::cout << "Failed to load fonts and images." << std::endl;
     }
 
-    if (images->load())
-    {
-        std::cout << "Images loaded successfuly" << std::endl;
-    }
-    else
-    {
-        std::cout << "Failed to load images" << std::endl;
-    }
-
-    bool error = fonts == nullptr || images == nullptr;
+    bool error = resources->fonts == nullptr || resources->images == nullptr;
 
     while (!error && window->isOpen())
     {
@@ -62,46 +53,49 @@ int main()
                 window->close();
                 break;
             }
-            if (event.type == sf::Event::KeyReleased)
+            if (K::MENU)
+            {
+                menu->handleEvent(event);
+            }
+            else
             {
                 app->handleEvent(event);
-                break;
             }
         }
 
-        if (K::AUTOPLAY)
+        if (!K::MENU && K::AUTOPLAY)
         {
             app->update();
+        }
+        else
+        {
+            menu->update();
         }
 
         window->clear(sf::Color::Black);
 
-        if (images != nullptr)
+        if (resources->images != nullptr)
         {
-            window->draw(images->background);
+            window->draw(resources->images->background);
         }
 
-        app->render(*window);
+        if (K::MENU)
+        {
+            menu->render(*window);
+        }
+        else
+        {
+            app->render(*window);
+        }
 
         window->display();
     }
 
-    if (app != nullptr)
-    {
-        delete app;
-    }
-    if (fonts != nullptr)
-    {
-        delete fonts;
-    }
-    if (images != nullptr)
-    {
-        delete images;
-    }
-    if (window != nullptr)
-    {
-        delete window;
-    }
+    delete menu;
+    delete resources;
+    delete app;
+    delete window;
+
     std::cout << "EXITING PROGRAM" << std::endl;
     return 0;
 }

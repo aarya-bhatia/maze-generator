@@ -12,6 +12,7 @@ namespace K
     extern bool AUTOPLAY; /* whether to run animation automatically */
     extern bool DEBUG;    /* whether to enable debug console logs */
     extern bool OUTLINE;  /* whether to outline cells */
+    extern bool MENU;     /* whether to show menu */
 
     extern const char *title;       /* window title */
     extern const int screen_width;  /* width of window in pixels */

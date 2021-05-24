@@ -13,18 +13,10 @@ public:
 
     ImageManager(const std::string &f) : file(f)
     {
-        if (K::DEBUG)
-        {
-            std::cout << __FILE__ << " constructor" << std::endl;
-        }
     }
 
     ~ImageManager()
     {
-        if (K::DEBUG)
-        {
-            std::cout << __FILE__ << " destructor" << std::endl;
-        }
     }
 
     bool load()

@@ -20,4 +20,6 @@ int TimerTest()
 
         std::cout << "value is " << value << std::endl;
     }
+
+    return 0;
 }

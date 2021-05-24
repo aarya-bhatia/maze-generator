@@ -9,6 +9,7 @@ namespace K
     bool AUTOPLAY = true;
     bool DEBUG = true;
     bool OUTLINE = true;
+    bool MENU = true;
 
     const char *title = "MAZE GENERATOR";
 

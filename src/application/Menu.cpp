@@ -22,11 +22,9 @@ void Menu::init()
     float yOff = getYOff();
     float xOff = getXOff();
 
-    menuItems = new sf::Text[numItems];
-
     for (int i = 0; i < numItems; i++)
     {
-        menuItems[i].setFont(fontManager.font);
+        menuItems[i].setFont(resources->fonts->font);
         menuItems[i].setString(itemLabels[i]);
         menuItems[i].setCharacterSize(K::CHARACTER_SIZE);
         menuItems[i].setFillColor(K::col_text);
@@ -36,7 +34,7 @@ void Menu::init()
     select(Play);
 }
 
-void Menu::draw(sf::RenderWindow &window)
+void Menu::render(sf::RenderWindow &window)
 {
     for (int i = 0; i < numItems; i++)
     {
@@ -44,24 +42,54 @@ void Menu::draw(sf::RenderWindow &window)
     }
 }
 
+void Menu::deselect(int item)
+{
+    if (item >= 0 && item < menuItems.size())
+    {
+        menuItems[selectedItem].setFillColor(K::col_text);
+    }
+}
+
 void Menu::select(int item)
 {
-    assert(item >= 0 && item < numItems);
-    menuItems[selectedItem].setFillColor(K::col_text);
-    menuItems[item].setFillColor(K::col_selected_text);
-    selectedItem = item;
+    if (item >= 0 && item < menuItems.size())
+    {
+        menuItems[item].setFillColor(K::col_selected_text);
+        selectedItem = item;
+    }
 }
 
 void Menu::up()
 {
+    deselect(selectedItem);
     select((selectedItem + numItems - 1) % numItems);
 }
 
 void Menu::down()
 {
+    deselect(selectedItem);
     select((selectedItem + 1) % numItems);
 }
 
-void Menu::update()
+void Menu::handleEvent(const sf::Event &event)
 {
+    if (event.type == sf::Event::KeyReleased)
+    {
+        if (event.key.code == sf::Keyboard::Up)
+        {
+            up();
+        }
+        else if (event.key.code == sf::Keyboard::Down)
+        {
+            down();
+        }
+        else if (event.key.code == sf::Keyboard::Enter)
+        {
+            std::cout << "Selected Item: " << itemLabels[selectedItem] << std::endl;
+            if (isSelected(Play))
+            {
+                K::MENU = false;
+            }
+        }
+    }
 }

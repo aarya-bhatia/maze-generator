@@ -1,29 +1,22 @@
+#pragma once
+
 #include "K.hpp"
-#include <iostream>
-#include "ImageManager.hpp"
-#include "FontManager.hpp"
+#include "ResourceManager.hpp"
+#include "Component.hpp"
+
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
 
-#ifndef MENU_HPP
-#define MENU_HPP
+#include <iostream>
+#include <array>
 
-class Menu
+//
+// MENU SCREEN
+//
+class Menu : public Component
 {
-private:
-    float getYOff() const;
-    float getXOff() const;
-    float getYAbs(int i, int yOff) const;
-
 public:
-    std::string *itemLabels;
-    sf::Text *menuItems;
-    int selectedItem;
-
-    ImageManager imageManager;
-    FontManager fontManager;
-
-    /* Warning: Do not change the order of this enum */
+    // IMPORTANT: Do not change the order of this enum
     enum ItemID
     {
         Play,
@@ -33,9 +26,11 @@ public:
         numItems
     };
 
-    Menu(const ImageManager &_imageManager, const FontManager &_fontManager) : selectedItem(0), imageManager(_imageManager), fontManager(_fontManager)
+    Menu(const ResourceManager *resources) : resources(resources),
+                                             itemLabels(),
+                                             menuItems(),
+                                             selectedItem(0)
     {
-        itemLabels = new std::string[numItems];
         itemLabels[Play] = std::string("Play");
         itemLabels[Help] = std::string("Help");
         itemLabels[Quit] = std::string("Quit");
@@ -44,24 +39,24 @@ public:
         init();
     }
 
-    ~Menu()
-    {
-        delete[] itemLabels;
-        delete[] menuItems;
-    }
+    void init() override;
+    void render(sf::RenderWindow &window) override;
+    void handleEvent(const sf::Event &event) override;
+    void update() override {}
+    bool isSelected(ItemID option) const { return selectedItem == option; }
 
-    void init();
-    void update();
-    void draw(sf::RenderWindow &window);
+private:
+    const ResourceManager *resources;
+    std::array<std::string, numItems> itemLabels;
+    std::array<sf::Text, numItems> menuItems;
+    int selectedItem;
+
+    float getYOff() const;
+    float getXOff() const;
+    float getYAbs(int i, int yOff) const;
 
     void up();
     void down();
     void select(int);
-
-    bool is(ItemID option) const
-    {
-        return selectedItem == option;
-    }
+    void deselect(int);
 };
-
-#endif
