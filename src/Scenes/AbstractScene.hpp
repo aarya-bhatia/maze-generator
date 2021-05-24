@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Component.hpp"
+#include "Logger.h"
 
 class AbstractScene : public Component
 {
@@ -14,6 +15,9 @@ protected:
         if (K::DEBUG)
         {
             std::cout << __FILE__ << " constructor" << std::endl;
+            // std::string file = __FILE__;
+            // file += " constructor";
+            // Logger::log(file.c_str());
         }
     }
 

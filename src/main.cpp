@@ -28,12 +28,12 @@ int main()
     if (fonts->load())
     {
         std::cout << "Fonts loaded successfully" << std::endl;
-        Logger::log("Fonts loaded successfully");
+        // Logger::log("Fonts loaded successfully");
     }
     else
     {
         std::cout << "Failed to load fonts" << std::endl;
-        Logger::log("Failed to load fonts");
+        // Logger::log("Failed to load fonts");
     }
 
     if (images->load())
