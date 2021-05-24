@@ -14,6 +14,7 @@ namespace K
     extern bool OUTLINE;  /* whether to outline cells */
     extern bool MENU;     /* whether to show menu */
     extern bool QUIT;     /* whether to quit */
+    extern bool PAUSE;    /* whether to pause animation */
 
     extern const char *title;       /* window title */
     extern const int screen_width;  /* width of window in pixels */

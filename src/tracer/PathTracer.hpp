@@ -15,7 +15,7 @@ public:
         {
             std::cout << "PathTracer constructor" << std::endl;
         }
-        log();
+        // log();
     }
 
     ~PathTracer()

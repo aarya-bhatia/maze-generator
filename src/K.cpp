@@ -11,6 +11,7 @@ namespace K
     bool OUTLINE = true;
     bool MENU = true;
     bool QUIT = false;
+    bool PAUSE = false;
 
     const char *title = "MAZE GENERATOR";
 

@@ -1,0 +1,25 @@
+Fonts and images loaded successfully
+src/Component.hpp constructor
+src/Scenes/SceneData.h constructor
+src/model/Maze.hpp constructor
+src/model/Grid.hpp constructor
+Path constructor
+TaskQueue constructor
+src/application/Animation.hpp constructor
+Adding task1 to queue...
+Adding task2 to queue...
+Adding task3 to queue...
+Adding task1 to queue...
+Adding task2 to queue...
+Adding task3 to queue...
+src/Component.hpp constructor
+Selected Item: Quit
+src/Component.hpp destructor
+src/application/Animation.cpp destructor
+src/Scenes/SceneData.h destructor
+Path Destructor
+src/model/Maze.hpp destructor
+src/model/Grid.hpp destructor
+TaskQueue destructor
+src/Component.hpp destructor
+EXITING PROGRAM

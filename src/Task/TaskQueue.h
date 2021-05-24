@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Task.hpp"
+
+#include <iostream>
 #include <queue>
 
 class TaskQueue
@@ -16,6 +18,7 @@ public:
 
     void enqueue(Task *task)
     {
+        std::cout << "Adding task" << task->id << " to queue..." << std::endl;
         queue.push(task);
     }
 

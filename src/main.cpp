@@ -1,42 +1,32 @@
 #include "Logger.h"
+#include "Window.hpp"
 #include "Animation.hpp"
 #include "Menu.hpp"
 
-#include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/Window/ContextSettings.hpp>
-#include <SFML/Window/VideoMode.hpp>
 #include <SFML/Window/Event.hpp>
 
-sf::RenderWindow *createWindow()
+int main(int argc, const char *argv[])
 {
-    sf::ContextSettings settings;
-    settings.antialiasingLevel = 6;
-    sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode(K::screen_width, K::screen_height), K::title, sf::Style::Default, settings);
-    window->setFramerateLimit(20);
-    return window;
-}
-
-int main()
-{
-    // Logger::logToFile();
+    if (argc == 2)
+    {
+        if (strcmp(argv[1], "-log") == 0)
+        {
+            std::cout << "Logging to file...";
+            Logger::logToFile();
+        }
+    }
 
     ResourceManager *resources = new ResourceManager(K::BACKGROUND_IMAGE_FILE, K::FONT_CAVIAR_DREAMS_BOLD);
 
-    if (resources->load())
+    if (!resources->load())
     {
-        std::cout << "Fonts and images loaded successfully" << std::endl;
-    }
-    else
-    {
-        std::cout << "Failed to load fonts and images." << std::endl;
+        std::cerr << "Failed to load fonts and images." << std::endl;
         exit(-1);
     }
 
     sf::RenderWindow *window = createWindow();
-    assert(window != nullptr);
 
     Animation *app = new Animation;
-    app->init();
 
     Menu *menu = new Menu(resources);
 
@@ -61,13 +51,16 @@ int main()
             }
         }
 
-        if (!K::MENU && K::AUTOPLAY)
+        if (K::MENU)
         {
-            app->update();
+            menu->update();
         }
         else
         {
-            menu->update();
+            if (K::AUTOPLAY && !K::PAUSE)
+            {
+                app->update();
+            }
         }
 
         window->clear(sf::Color::Black);

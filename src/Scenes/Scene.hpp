@@ -27,7 +27,25 @@ public:
 
     virtual void handleEvent(const sf::Event &event) override
     {
-        std::cout << "Scene Event" << std::endl;
+        if (event.type == sf::Event::KeyReleased)
+        {
+            // A -> toggle autoplay
+            if (event.key.code == sf::Keyboard::A)
+            {
+                K::AUTOPLAY = !K::AUTOPLAY;
+            }
+            // P -> pauses animation when autoplay is on
+            else if (K::AUTOPLAY && event.key.code == sf::Keyboard::P)
+            {
+                K::PAUSE = !K::PAUSE;
+            }
+            // N -> update frame when autoplay is off
+            else if (!K::AUTOPLAY && event.key.code == sf::Keyboard::N)
+            {
+                next();
+                update();
+            }
+        }
     }
 
     virtual ~Scene()

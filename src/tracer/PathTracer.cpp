@@ -5,16 +5,18 @@ void PathTracer::next()
     if (data->path->has(current))
     {
         current = data->path->get(current);
+        std::cout << __FILE__ << ": " << __LINE__ << ": Current coord: " << current << std::endl;
     }
     else
     {
+        std::cout << "finished tracer" << std::endl;
         tracing = false;
     }
 }
 
 bool PathTracer::finished()
 {
-    return data->path->get(current).as1D(data->grid->matrix) == -1 || tracing;
+    return !tracing;
 }
 
 void PathTracer::update()
