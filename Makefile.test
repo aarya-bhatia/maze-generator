@@ -1,0 +1,20 @@
+cxx=clang++
+cxxflags=-Wall -std=c++14 -g
+cppflags=-Isrc/math -Itest -Itest/math -MMD -MP
+src=$(shell find test -name *.cpp)
+objs=$(src:%.cpp=obj/%.o)
+exe=bin/test
+
+all: $(exe)
+
+$(exe): $(objs)
+	mkdir -p $(dir $@);
+	g++ $^ -o $@
+
+obj/%.o: %.cpp
+	mkdir -p $(dir $@);
+	$(cxx) $(cppflags) $(cxxflags) -c $< -o $@
+
+.PHONY: clean
+clean:
+	rm -rf $(objs) $(exe)

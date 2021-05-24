@@ -1,5 +1,4 @@
 -> make a slider in the settings menu to change grid rows and cols
 -> change colors of cells in settings
 -> call solve and trace again
--> implement a scroll pane in menu
 -> reset maze generator after tracer is done 
