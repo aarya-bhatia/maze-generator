@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Dir.hpp"
+#include <iostream>
+
 namespace Test
 {
     extern void test_bits();

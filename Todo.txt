@@ -2,3 +2,4 @@
 -> change colors of cells in settings
 -> call solve and trace again
 -> reset maze generator after tracer is done 
+-> unit testing

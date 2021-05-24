@@ -1,8 +1,5 @@
-#include "Decl.hpp"
+#include "Test.hpp"
 #include "Bits.hpp"
-#include "Dir.hpp"
-
-#include <iostream>
 
 namespace Test
 {
