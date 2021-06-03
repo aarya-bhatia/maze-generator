@@ -7,22 +7,25 @@
 namespace K
 {
     bool AUTOPLAY = true;
-    bool DEBUG = true;
+    bool DEBUG = false;
     bool OUTLINE = true;
     bool MENU = true;
     bool QUIT = false;
     bool PAUSE = false;
+    bool SCENE_LOG = true;
 
     const char *title = "MAZE GENERATOR";
 
     const int screen_width = 1960;
     const int screen_height = 1715;
 
-    int cell_width = 100;
-    int cell_height = 100;
+    static const int min_cell_size = 40;
 
-    int maze_cols = 3;
-    int maze_rows = 3;
+    int maze_cols = fmin(15, screen_width / min_cell_size);
+    int maze_rows = fmin(15, screen_height / min_cell_size);
+
+    int cell_width = fmin(100, screen_width / (2 * maze_cols));
+    int cell_height = fmin(100, screen_height / (2 * maze_rows));
 
     int grid_cols = 2 * maze_cols - 1;
     int grid_rows = 2 * maze_rows - 1;

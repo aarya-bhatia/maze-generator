@@ -9,12 +9,13 @@
  */
 namespace K
 {
-    extern bool AUTOPLAY; /* whether to run animation automatically */
-    extern bool DEBUG;    /* whether to enable debug console logs */
-    extern bool OUTLINE;  /* whether to outline cells */
-    extern bool MENU;     /* whether to show menu */
-    extern bool QUIT;     /* whether to quit */
-    extern bool PAUSE;    /* whether to pause animation */
+    extern bool AUTOPLAY;  /* whether to run animation automatically */
+    extern bool DEBUG;     /* whether to enable debug console logs */
+    extern bool OUTLINE;   /* whether to outline cells */
+    extern bool MENU;      /* whether to show menu */
+    extern bool QUIT;      /* whether to quit */
+    extern bool PAUSE;     /* whether to pause animation */
+    extern bool SCENE_LOG; /* whether to log scene debug information */
 
     extern const char *title;       /* window title */
     extern const int screen_width;  /* width of window in pixels */

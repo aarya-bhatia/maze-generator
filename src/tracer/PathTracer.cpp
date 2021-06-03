@@ -2,14 +2,20 @@
 
 void PathTracer::next()
 {
+    if (firstIter)
+    {
+        firstIter = false;
+        return;
+    }
+
     if (data->path->has(current))
     {
         current = data->path->get(current);
-        std::cout << __FILE__ << ": " << __LINE__ << ": Current coord: " << current << std::endl;
+        // std::cout << __FILE__ << ": " << __LINE__ << ": Current coord: " << current << std::endl;
     }
     else
     {
-        std::cout << "finished tracer" << std::endl;
+        // std::cout << "finished tracer" << std::endl;
         tracing = false;
     }
 }

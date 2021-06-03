@@ -14,7 +14,7 @@ sf::RenderWindow *createWindow()
         sf::Style::Default,
         settings);
 
-    window->setFramerateLimit(20);
+    // window->setFramerateLimit(40);
 
     return window;
 }

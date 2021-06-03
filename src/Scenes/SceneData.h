@@ -28,6 +28,14 @@ struct SceneData
 
         start = Matrix::mapToGrid(maze_start);
         end = Matrix::mapToGrid(maze_end);
+
+        path->start = &start;
+        path->end = &end;
+    }
+
+    void setEnd(Matrix::Coord c)
+    {
+        end = c;
     }
 
     ~SceneData()

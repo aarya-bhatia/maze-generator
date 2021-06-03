@@ -86,5 +86,9 @@ public:
         {
             std::cout << __FILE__ << " destructor" << std::endl;
         }
+        if (K::SCENE_LOG)
+        {
+            log();
+        }
     }
 };

@@ -8,6 +8,7 @@ class PathTracer : public Scene
 public:
     Matrix::Coord current;
     bool tracing;
+    bool firstIter = true;
 
     explicit PathTracer(const SceneData *data) : Scene(data, K::col_tracer), current(data->end), tracing(true)
     {
@@ -15,7 +16,6 @@ public:
         {
             std::cout << "PathTracer constructor" << std::endl;
         }
-        // log();
     }
 
     ~PathTracer()
@@ -23,6 +23,10 @@ public:
         if (K::DEBUG)
         {
             std::cout << __FILE__ << " destructor" << std::endl;
+        }
+        if (K::SCENE_LOG)
+        {
+            log();
         }
     }
 

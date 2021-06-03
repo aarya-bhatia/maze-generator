@@ -2,6 +2,9 @@
 
 #include "Scene.hpp"
 #include "TaskQueue.h"
+#include "GeneratorTask.hpp"
+#include "SolverTask.hpp"
+#include "TracerTask.hpp"
 
 class Animation : public Component
 {

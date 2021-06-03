@@ -1,9 +1,5 @@
 #include "Animation.hpp"
 
-#include "GeneratorTask.hpp"
-#include "SolverTask.hpp"
-#include "TracerTask.hpp"
-
 //
 // -----------Update----------
 // In the first update call, scene is null.

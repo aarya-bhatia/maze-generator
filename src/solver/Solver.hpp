@@ -37,6 +37,10 @@ public:
         {
             std::cout << __FILE__ << " destructor" << std::endl;
         }
+        if (K::SCENE_LOG)
+        {
+            log();
+        }
     }
 
     /**
@@ -62,7 +66,7 @@ public:
      */
     bool finished() override
     {
-        return current == data->end;
+        return current == data->end || !solving;
     }
 
     /**

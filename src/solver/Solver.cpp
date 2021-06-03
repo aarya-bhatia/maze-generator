@@ -20,7 +20,7 @@ void Solver::init()
  */
 void Solver::next()
 {
-    if (finished() || !solving)
+    if (finished())
     {
         std::cout << __FILE__ << ": " << __LINE__ << ": Path found" << std::endl;
         return;

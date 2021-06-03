@@ -23,6 +23,9 @@ private:
     }
 
 public:
+    Matrix::Coord *start; // start cell of the view matrix
+    Matrix::Coord *end;   // end cell of the view matrix
+
     Path(const Math::Matrix &view_matrix) : view_matrix(view_matrix),
                                             list(view_matrix.size())
     {
